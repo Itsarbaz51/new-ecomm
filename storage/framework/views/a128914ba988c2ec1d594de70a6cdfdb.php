@@ -1,0 +1,228 @@
+<?php $attributes ??= new \Illuminate\View\ComponentAttributeBag;
+
+$__newAttributes = [];
+$__propNames = \Illuminate\View\ComponentAttributeBag::extractPropNames((['title' => '']));
+
+foreach ($attributes->all() as $__key => $__value) {
+    if (in_array($__key, $__propNames)) {
+        $$__key = $$__key ?? $__value;
+    } else {
+        $__newAttributes[$__key] = $__value;
+    }
+}
+
+$attributes = new \Illuminate\View\ComponentAttributeBag($__newAttributes);
+
+unset($__propNames);
+unset($__newAttributes);
+
+foreach (array_filter((['title' => '']), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
+    $$__key = $$__key ?? $__value;
+}
+
+$__defined_vars = get_defined_vars();
+
+foreach ($attributes->all() as $__key => $__value) {
+    if (array_key_exists($__key, $__defined_vars)) unset($$__key);
+}
+
+unset($__defined_vars); ?>
+
+<!DOCTYPE html>
+<html dir="ltr" lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
+
+<head>
+    <title><?php echo e($title); ?> | <?php echo e(config('app.name', 'Laravel')); ?></title>
+    <meta charset="utf-8">
+    <meta name="author" content="themesflat.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('css/animate.min.css')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('css/animation.css')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('css/bootstrap.css')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('css/bootstrap-select.min.css')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('css/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('font/fonts.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('icon/style.css')); ?>">
+    <link rel="shortcut icon" href="<?php echo e(asset('images/favicon.ico')); ?>">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo e(asset('images/favicon.ico')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('css/sweetalert.min.css')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('css/custom.css')); ?>">
+
+
+    <style>
+        .logout-text {
+            color: red;
+            font-size: 2rem;
+
+        }
+
+        .logout-text:hover {
+            color: rgb(244, 48, 48);
+        }
+
+        .log {
+            border-top: 2px solid #bbbbbb;
+        }
+    </style>
+</head>
+
+<body class="body">
+    <div id="wrapper">
+        <div id="page" class="">
+            <div class="layout-wrap">
+                <div class="section-menu-left">
+                    <div class="box-logo">
+                        <a href="<?php echo e(route('admin.index')); ?>" id="site-logo-inner">
+                            <img class="" id="logo_header" alt="logo"
+                                src="<?php echo e(asset('images/logo/logo.png')); ?>"
+                                data-light="<?php echo e(asset('images/logo/logo.png')); ?>"
+                                data-dark="<?php echo e(asset('images/logo/logo.png')); ?>">
+                        </a>
+                        <div class="button-show-hide">
+                            <i class="icon-menu-left"></i>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <div class="center-item">
+                            <div class="center-heading">Main Home</div>
+                            <ul class="menu-list">
+                                <li class="menu-item">
+                                    <a href="<?php echo e(route('admin.index')); ?>" class="">
+                                        <div class="icon"><i class="icon-grid"></i></div>
+                                        <div class="text">Dashboard</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="center-item">
+                            <?php echo $__env->make('admin.admin-nav', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-content-right">
+
+                    <div class="header-dashboard">
+                        <div class="wrap">
+                            <div class="header-left">
+                                <a href="<?php echo e(route('home.index')); ?>">
+                                    <img class="" id="logo_header_mobile" alt=""
+                                        src="<?php echo e(asset('images/logo/logo.png')); ?>"
+                                        data-light="<?php echo e(asset('images/logo/logo.png')); ?>"
+                                        data-dark="<?php echo e(asset('images/logo/logo.png')); ?>" data-width="154px"
+                                        data-height="52px" data-retina="images/logo/logo.png')}}">
+                                </a>
+                                <div class="button-show-hide">
+                                    <i class="icon-menu-left"></i>
+                                </div>
+
+
+                                <form class="form-search flex-grow">
+                                    <fieldset class="name">
+                                        <input type="text" placeholder="Search here..." class="show-search"
+                                            id="search-input" name="name" tabindex="2" value=""
+                                            aria-required="true" required="" autocomplete="off">
+                                    </fieldset>
+                                    <div class="button-submit">
+                                        <button class="" type="submit"><i class="icon-search"></i></button>
+                                    </div>
+                                    <div class="box-content-search">
+                                        <ul id="box-content-search"></ul>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="header-grid">
+                                <div class="popup-wrap message type-header">
+                                    <?php echo $__env->make('admin.admin-notification', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+                                </div>
+                                <div class="popup-wrap user type-header">
+                                    <?php echo $__env->make('admin.admin-profile', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <?php echo e($slot); ?>
+
+                        <div class="bottom-page">
+                            <div class="body-text">Copyright © 2025 E-COM-SELLER</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="<?php echo e(asset('js/jquery.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/bootstrap.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/bootstrap-select.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/sweetalert.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/apexcharts/apexcharts.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/main.js')); ?>"></script>
+    <script>
+        $(function() {
+            $('#search-input').on('keyup', function() {
+                let searchQuery = $(this).val();
+
+                if (searchQuery.length > 2) {
+                    $.ajax({
+                        url: "<?php echo e(route('admin.search')); ?>",
+                        method: "GET",
+                        data: {
+                            query: searchQuery
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            $("#box-content-search").html("");
+
+                            if (data.length === 0) {
+                                $("#box-content-search").append(`
+                            <li class="text-center text-muted">No products found.</li>
+                        `);
+                            } else {
+                                $.each(data, function(index, item) {
+                                    let link =
+                                        "<?php echo e(route('admin.product.edit', ['id' => 'product_id'])); ?>"
+                                        .replace('__slug__', item.id);
+
+                                    $("#box-content-search").append(`
+                                <li>
+                                    <ul>
+                                        <li class="product-item gap14 mb-10">
+                                            <div class="image no-bg">
+                                                <img src="/storage/uploads/products/thumbnails/${item.image}" alt="${item.name}">
+                                            </div>
+                                            <div class="flex items-center justify-between gap20 flex-grow">
+                                                <div class="name">
+                                                    <a href="${link}" class="body-text">${item.name}</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="mb-10">
+                                            <div class="divider"></div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            `);
+                                });
+                            }
+                        },
+                        error: function() {
+                            $("#box-content-search").html(
+                                `<li class="text-danger text-center">Search error occurred.</li>`
+                            );
+                        }
+                    });
+                } else {
+                    $("#box-content-search").empty();
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
+<?php /**PATH C:\Users\hp\Desktop\ECOMSELLER\resources\views/layouts/admin.blade.php ENDPATH**/ ?>

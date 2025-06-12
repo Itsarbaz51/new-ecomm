@@ -1,0 +1,1 @@
+<?php /**PATH C:\Users\hp\Desktop\ECOMSELLER\resources\views/leggings.blade.php ENDPATH**/ ?>
