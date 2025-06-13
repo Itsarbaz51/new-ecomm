@@ -164,7 +164,7 @@
                                         <input type="hidden" name="quantity" value="1">
                                         <input type="hidden" name="price"
                                             value="<?php echo e($product->sale_price ?: $product->regular_price); ?>">
-                                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                        <button type="submit" class="btn-main">Add to Cart</button>
                                     </form>
                                     <?php endif; ?>
                                 </div>
@@ -182,7 +182,7 @@
         <div class="mb-3 mb-xl-5 pt-1 pb-4"></div>
         <div class="py-4 px-4 md:px-6 lg:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 xxl:grid-cols-4 gap-6">
-                <?php $__currentLoopData = $categories->take(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $categorie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php $__currentLoopData = $categories->take(2); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $categorie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div
                     class="bg-white relative rounded-2xl shadow flex flex-col justify-center hover:shadow-md transition-all overflow-hidden">
                     <img loading="lazy" src="<?php echo e(asset('storage/uploads/categories/' . $categorie->image)); ?>"

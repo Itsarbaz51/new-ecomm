@@ -156,7 +156,7 @@
                                         <input type="hidden" name="quantity" value="1">
                                         <input type="hidden" name="price"
                                             value="{{ $product->sale_price ?: $product->regular_price }}">
-                                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                        <button type="submit" class="btn-main">Add to Cart</button>
                                     </form>
                                     @endif
                                 </div>
@@ -174,7 +174,7 @@
         <div class="mb-3 mb-xl-5 pt-1 pb-4"></div>
         <div class="py-4 px-4 md:px-6 lg:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 xxl:grid-cols-4 gap-6">
-                @foreach ($categories->take(4) as $categorie)
+                @foreach ($categories->take(2) as $categorie)
                 <div
                     class="bg-white relative rounded-2xl shadow flex flex-col justify-center hover:shadow-md transition-all overflow-hidden">
                     <img loading="lazy" src="{{ asset('storage/uploads/categories/' . $categorie->image) }}"

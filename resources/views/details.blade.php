@@ -163,7 +163,7 @@
                                     <div class="qty-control__increase">+</div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary btn-addtocart" data-aside="cartDrawer">Add
+                                <button type="submit" class="btn-main btn-addtocart" data-aside="cartDrawer">Add
                                     to
                                     Cart</button>
                             </div>
@@ -389,7 +389,7 @@
                                             <input type="hidden" name="quantity" value="1">
                                             <input type="hidden" name="price"
                                                 value="{{ $product->sale_price ?: $product->regular_price }}">
-                                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                            <button type="submit" class="btn-main">Add to Cart</button>
                                         </form>
                                         @endif
                                     </div>
