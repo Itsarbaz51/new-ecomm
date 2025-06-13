@@ -265,26 +265,33 @@ class AdminController extends Controller
 
         return view('admin.product-add', compact('categories', 'brands'));
     }
-
     public function store_product(Request $request)
     {
-        // dd($request);
         $request->validate([
             'name' => 'required',
             'slug' => 'required|unique:products,slug',
             'short_description' => 'required',
             'description' => 'required',
-            'regular_price' => 'required',
-            'sale_price' => 'required',
+            'regular_price' => 'required|numeric',
+            'sale_price' => 'required|numeric',
             'SKU' => 'required',
             'stock_status' => 'required',
-            'featured' => 'required',
-            'quantity' => 'required',
+            'featured' => 'required|boolean',
+            'quantity' => 'required|integer',
             'image' => 'nullable|mimes:png,jpg,jpeg,webp|max:4096',
             'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:4096',
-            'category_id' => 'required',
-            'brand_id' => 'required',
+
+            // ✅ Corrected validation
+            // 'color' => 'required|array|min:1',
+            // 'colors.*' => 'required|string',
+            'sizes' => 'required|array|min:1',
+            'sizes.*' => 'required|string',
+            'weight' => 'required|numeric',
+
+            'category_id' => 'required|exists:categories,id',
+            'brand_id' => 'required|exists:brands,id',
         ]);
+        // dd($request);
 
         $product = new Product();
         $product->name = $request->name;
@@ -299,7 +306,11 @@ class AdminController extends Controller
         $product->quantity = $request->quantity;
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
+        $product->weight = $request->weight;
 
+        $product->sizes = json_encode($request->sizes);    // or implode(',', $request->size)
+        // $product->colors = json_encode($request->colors);  // or implode(',', $request->color)
+        // dd($product);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -311,18 +322,17 @@ class AdminController extends Controller
         if ($request->hasFile('images')) {
             $gallery_array = [];
             $counter = 1;
-
             foreach ($request->file('images') as $file) {
                 $file_name = Carbon::now()->timestamp . '_' . $counter . '.' . $file->extension();
                 $file->storeAs('uploads/products/gallery/', $file_name, 'public');
                 $gallery_array[] = $file_name;
                 $counter++;
             }
-
             $product->images = implode(',', $gallery_array);
         }
 
         $product->save();
+
         return redirect()->route('admin.products')->with('status', 'Product added successfully');
     }
 
@@ -613,18 +623,13 @@ class AdminController extends Controller
     {
 
         $request->validate([
-            'tagline' => 'required',
             'title' => 'required',
-            'subtitle' => 'required',
-            'link' => 'required',
             'status' => 'required',
             'image' => 'required|mimes:png,jpg,jpeg,webp|max:2048',
         ]);
 
         $slide = new Slide();
-        $slide->tagline = $request->tagline;
         $slide->title = $request->title;
-        $slide->subtitle = $request->subtitle;
         $slide->link = $request->link;
         $slide->status = $request->status;
 
@@ -649,9 +654,7 @@ class AdminController extends Controller
     public function update_slide(Request $request)
     {
         $request->validate([
-            'tagline' => 'nullable',
             'title' => 'nullable',
-            'subtitle' => 'nullable',
             'link' => 'nullable',
             'status' => 'nullable',
             'image' => 'nullable|mimes:png,jpg,jpeg,webp|max:2048',
@@ -662,9 +665,7 @@ class AdminController extends Controller
             return redirect()->route('admin.slides')->with('error', 'slide not found');
         }
 
-        $slide->tagline = $request->tagline;
         $slide->title = $request->title;
-        $slide->subtitle = $request->subtitle;
         $slide->link = $request->link;
         $slide->status = $request->status;
 

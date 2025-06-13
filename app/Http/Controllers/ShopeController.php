@@ -69,16 +69,20 @@ class ShopeController extends Controller
                 ->orWhereBetween('sale_price', [$min_price, $max_price]);
         })->orderBy($o_column, $o_order)->paginate($size);
 
-        return view('shop', compact('products', 'size', 'current_category', 'order', 'brands', 'f_brands', 'categories', 'f_categories', 'min_price', 'max_price'));
+
+        $reviews = Review::all();
+
+
+        return view('shop', compact('products', 'size', 'current_category', 'order', 'brands', 'f_brands', 'categories', 'f_categories', 'min_price', 'max_price', 'reviews'));
     }
 
     public function product_details($product_slug)
     {
-        $product = Product::where('slug', $product_slug)->first();
+        $productSingle = Product::where('slug', $product_slug)->first();
         $products = Product::where('slug', '<>', $product_slug)->get()->take(8);
         $reviews = Review::all();
 
-        return view('details', compact('product', 'products', 'reviews'));
+        return view('details', compact('productSingle', 'products', 'reviews'));
     }
 
     public function review_store(Request $request)
@@ -92,6 +96,7 @@ class ShopeController extends Controller
             'image' => 'nullable|image|max:2048',
         ]);
 
+        // dd($request);
         $review = new Review();
         $review->name = $request->name;
         $review->email = $request->email;

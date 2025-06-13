@@ -18,10 +18,10 @@
                                     <div class="swiper-slide product-single__image-item">
                                         {{-- @dd($product->image) --}}
                                         <img loading="lazy" class="h-auto"
-                                            src="{{ asset('storage/uploads/products/thumbnails/' . $product->image) }}"
-                                            width="674" height="674" alt="" />
+                                            src="{{ asset('storage/uploads/products/thumbnails/' . $productSingle->image) }}"
+                                            width="674" height="374" alt="" />
                                         <a data-fancybox="gallery"
-                                            href="{{ asset('storage/uploads/products/thumbnails/' . $product->image) }}"
+                                            href="{{ asset('storage/uploads/products/thumbnails/' . $productSingle->image) }}"
                                             data-bs-toggle="tooltip" data-bs-placement="left" title="Zoom">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -31,11 +31,11 @@
                                     </div>
                                     {{-- // gallery images --}}
                                     {{-- @dd($product->images) --}}
-                                    @foreach (explode(',', $product->images) as $image)
+                                    @foreach (explode(',', $productSingle->images) as $image)
                                     <div class="swiper-slide product-single__image-item">
                                         <img loading="lazy" class="h-auto"
                                             src="{{ asset('storage/uploads/products/gallery/' . trim($image)) }}"
-                                            width="674" height="674" alt="{{ $product->name }}" />
+                                            width="674" height="674" alt="{{ $productSingle->name }}" />
                                         <a data-fancybox="gallery" href="../images/products/product_0-1.html"
                                             data-bs-toggle="tooltip" data-bs-placement="left" title="Zoom">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -61,13 +61,13 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide product-single__image-item"><img loading="lazy"
                                             class="h-auto"
-                                            src="{{ asset('storage/uploads/products/thumbnails/' . $product->image) }}"
-                                            width="104" height="104" alt="{{ $product->name }}" /></div>
-                                    @foreach (explode(',', $product->images) as $image)
+                                            src="{{ asset('storage/uploads/products/thumbnails/' . $productSingle->image) }}"
+                                            width="104" height="104" alt="{{ $productSingle->name }}" /></div>
+                                    @foreach (explode(',', $productSingle->images) as $image)
                                     <div class="swiper-slide product-single__image-item"><img loading="lazy"
                                             class="h-auto"
                                             src="{{ asset('storage/uploads/products/gallery/' . trim($image)) }}"
-                                            width="104" height="104" alt="{{ $product->name }}" /></div>
+                                            width="104" height="104" alt="{{ $productSingle->name }}" /></div>
                                     @endforeach
 
                                 </div>
@@ -83,11 +83,13 @@
                             <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">The Shop</a>
                         </div>
                     </div>
-                    <h1 class="product-single__name">{{ $product->name }}</h1>
+                    <h1 class="product-single__name">{{ $productSingle->name }}</h1>
                     <div class="product-single__rating">
                         <div class="reviews-group d-flex">
                             @php
-                            $maxRating = $reviews->max('rating'); // Get highest rating from all reviews
+                            // Filter reviews that belong to this product
+                            $productReviews = $reviews->where('product_id', $productSingle->id);
+                            $maxRating = $productReviews->max('rating');
                             @endphp
 
                             {{-- Filled stars --}}
@@ -105,41 +107,73 @@
                                     </svg>
                                     @endfor
                         </div>
-                        <span class="reviews-note text-lowercase text-secondary ms-1">{{ $reviews->count() }}
+
+                        <span class="reviews-note text-lowercase text-secondary ms-1">{{
+                            $productReviews->count() }}
                             reviews</span>
                     </div>
                     <div class="product-single__price">
                         <span class="current-price">
-                            @if ($product->sale_price)
-                            <s>₹{{ $product->regular_price }}</s> ₹{{ $product->sale_price }}
+                            @if ($productSingle->sale_price)
+                            <s>₹{{ $productSingle->regular_price }}</s> ₹{{ $productSingle->sale_price }}
                             @else
-                            ₹{{ $product->regular_price }}
+                            ₹{{ $productSingle->regular_price }}
                             @endif
                         </span>
                     </div>
                     <div class="product-single__short-desc">
-                        <p>{{ $product->short_description }}</p>
+                        <p>{{ $productSingle->short_description }}</p>
                     </div>
-                    @if (Cart::instance('cart')->content()->where('id', $product->id)->count() > 0)
+                    @if (Cart::instance('cart')->content()->where('id', $productSingle->id)->count() > 0)
                     <a href="{{ route('cart.index') }}" class="btn btn-warning mb-3">Go to Cart</a>
                     @else
                     <form name="addtocart-form" method="post" action="{{ route('cart.add') }}">
                         @csrf
                         <div class="product-single__addtocart">
-                            <div class="qty-control position-relative">
-                                <input type="number" name="quantity" value="1" min="1"
-                                    class="qty-control__number text-center">
-                                <div class="qty-control__reduce">-</div>
-                                <div class="qty-control__increase">+</div>
+                            <div class="flex flex-col">
+
+                                @php
+                                $sizes = is_array($productSingle->sizes) ? $productSingle->sizes :
+                                json_decode($productSingle->sizes ??
+                                '[]');
+                                @endphp
+
+                                @if (!empty($sizes))
+                                <div class="mb-4 -mt-6">
+                                    <label class="block mb-2 font-semibold">Select Size</label>
+
+                                    <div class="flex flex-wrap gap-2">
+                                        @foreach ($sizes as $size)
+                                        <label class="cursor-pointer">
+                                            <input type="radio" name="selected_size" value="{{ $size }}"
+                                                class="hidden peer" required>
+                                            <div
+                                                class="px-4 py-2 border rounded-lg peer-checked:bg-black peer-checked:text-white">
+                                                {{ $size }}
+                                            </div>
+                                        </label>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                @endif
+                                <div class="qty-control position-relative mb-8">
+                                    <input type="number" name="quantity" value="1" min="1"
+                                        class="qty-control__number text-center">
+                                    <div class="qty-control__reduce">-</div>
+                                    <div class="qty-control__increase">+</div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-addtocart" data-aside="cartDrawer">Add
+                                    to
+                                    Cart</button>
                             </div>
-                            {{--
-                            <!-- .qty-control --> --}}
-                            <input type="hidden" name="id" value="{{ $product->id }}">
-                            <input type="hidden" name="name" value="{{ $product->name }}">
+
+                            <input type="hidden" name="id" value="{{ $productSingle->id }}">
+                            <input type="hidden" name="name" value="{{ $productSingle->name }}">
                             <input type="hidden" name="price"
-                                value="{{ $product->sale_price == '' ? $product->regular_price : $product->sale_price }}">
-                            <button type="submit" class="btn btn-primary btn-addtocart" data-aside="cartDrawer">Add to
-                                Cart</button>
+                                value="{{ $productSingle->sale_price == '' ? $productSingle->regular_price : $productSingle->sale_price }}">
+
+
                         </div>
                     </form>
                     @endif
@@ -209,31 +243,29 @@
                     <div class="product-single__meta-info">
                         <div class="meta-item">
                             <label>SKU:</label>
-                            <span>{{ $product->SKU }}</span>
+                            <span>{{ $productSingle->SKU }}</span>
                         </div>
                         <div class="meta-item">
                             <label>Categories:</label>
-                            <span>{{ $product->category->name }}</span>
+                            <span>{{ $productSingle->category->name }}</span>
                         </div>
                         <div class="py-1">
                             <span class="text-sm font-semibold">Product details</span>
                             <div class="px-2">
                                 <div class="">
                                     <label class="">Weight</label>
-                                    <span>1.25 kg</span>
+                                    <span>{{ $productSingle->weight }} gm</span>
                                 </div>
-                                <div class="">
+                                {{-- <div class="">
                                     <label class="">Dimensions</label>
                                     <span>90 x 60 x 90 cm</span>
-                                </div>
-                                <div class="">
-                                    <label class="">Size</label>
-                                    <span>XS, S, M, L, XL</span>
-                                </div>
-                                <div class="">
+                                </div> --}}
+
+
+                                {{-- <div class="">
                                     <label class="">Color</label>
-                                    <span>Black, Orange, White</span>
-                                </div>
+                                    <span>{{ $product->colors }}</span>
+                                </div> --}}
                             </div>
 
                         </div>
@@ -241,7 +273,7 @@
                             <span class="text-sm font-semibold">
                                 description :
                             </span>
-                            {{ $product->description }}
+                            {{ $productSingle->description }}
                         </div>
 
                     </div>
@@ -261,153 +293,113 @@
                 </div>
                 @else
                 <div id="related_products" class="position-relative">
-                    <div class="swiper-container js-swiper-slider" data-settings='{
-    "autoplay": false,
-    "slidesPerView": 4,
-    "slidesPerGroup": 4,
-    "effect": "none",
-    "loop": true,
-    "pagination": {
-      "el": "#related_products .products-pagination",
-      "type": "bullets",
-      "clickable": true
-    },
-    "navigation": {
-      "nextEl": "#related_products .products-carousel__next",
-      "prevEl": "#related_products .products-carousel__prev"
-    },
-    "breakpoints": {
-      "320": {
-        "slidesPerView": 2,
-        "slidesPerGroup": 2,
-        "spaceBetween": 14
-      },
-      "768": {
-        "slidesPerView": 3,
-        "slidesPerGroup": 3,
-        "spaceBetween": 24
-      },
-      "992": {
-        "slidesPerView": 4,
-        "slidesPerGroup": 4,
-        "spaceBetween": 30
-      }
-    }
-    }'>
-                        <div class="swiper-wrapper">
-                            @foreach ($products as $product)
-                            <div class="col">
-                                <div class="card h-100 shadow-sm product-card product-hover">
-                                    <div class="position-relative overflow-hidden">
-                                        {{-- Swiper for product images --}}
-                                        <div class="swiper-container" data-settings='{"resizeObserver": true}'>
-                                            <div class="swiper-wrapper">
-                                                <div class="swiper-slide">
-                                                    <a
-                                                        href="{{ route('shop.product.details', ['product_slug' => $product->slug]) }}">
-                                                        <img src="{{ asset('storage/uploads/products/thumbnails/' . $product->image) }}"
-                                                            class="card-img-top" alt="{{ $product->name }}">
-                                                    </a>
-                                                </div>
-                                                @foreach (explode(',', $product->images) as $image)
-                                                <div class="swiper-slide">
-                                                    <a
-                                                        href="{{ route('shop.product.details', ['product_slug' => $product->slug]) }}">
-                                                        <img src="{{ asset('storage/uploads/products/gallery/' . trim($image)) }}"
-                                                            class="card-img-top product-image"
-                                                            alt="{{ $product->name }}">
-                                                    </a>
-                                                </div>
-                                                @endforeach
+                    <div class="flex overflow-auto gap-x-4 p-4">
+                        @foreach ($products as $product)
+                        <div class="col">
+                            <div class="card h-100 shadow-sm product-card product-hover w-fit">
+                                <div class="position-relative overflow-hidden">
+                                    {{-- Swiper for product images --}}
+                                    <div class="swiper-container" data-settings='{"resizeObserver": true}'>
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide flex justify-center items-center">
+                                                <a
+                                                    href="{{ route('shop.product.details', ['product_slug' => $product->slug]) }}">
+                                                    <img src="{{ asset('storage/uploads/products/thumbnails/' . $product->image) }}"
+                                                        class="object-contain" alt="{{ $product->name }}">
+                                                </a>
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    {{-- Card Body --}}
-                                    <div class="card-body text-center">
-                                        <p class="card-title small text-muted mb-1">{{ $product->category->name
-                                            }}</p>
-                                        <h6 class="card-title mb-2">
-                                            <a href="{{ route('shop.product.details', ['product_slug' => $product->slug]) }}"
-                                                class="text-dark text-decoration-none">{{ $product->name }}</a>
-                                        </h6>
-
-                                        {{-- Price --}}
-                                        <div class="mb-2">
-                                            @if ($product->sale_price)
-                                            <span class="text-decoration-line-through text-muted me-2">₹{{
-                                                $product->regular_price }}</span>
-                                            <span class="fw-bold text-danger">₹{{ $product->sale_price }}</span>
-                                            @else
-                                            <span class="fw-bold text-dark">₹{{ $product->regular_price
-                                                }}</span>
-                                            @endif
-                                        </div>
-
-                                        {{-- Reviews --}}
-                                        <div class="d-flex justify-content-center align-items-center mb-3">
-                                            <div class="d-flex">
-                                                @for ($i = 0; $i < 5; $i++) <svg class="mb-1 text-warning" width="14"
-                                                    height="14">
-                                                    <use href="#icon_star" />
-                                                    </svg>
-                                                    @endfor
+                                            @foreach (explode(',', $product->images) as $image)
+                                            <div class="swiper-slide">
+                                                <a
+                                                    href="{{ route('shop.product.details', ['product_slug' => $product->slug]) }}">
+                                                    <img src="{{ asset('storage/uploads/products/gallery/' . trim($image)) }}"
+                                                        class="card-img-top product-image" alt="{{ $product->name }}">
+                                                </a>
                                             </div>
-                                            <span class="ms-2 text-muted small">8k+ reviews</span>
-                                        </div>
-
-                                        {{-- Add to Cart --}}
-                                        <div class="product-action transition">
-                                            @if (Cart::instance('cart')->content()->where('id',
-                                            $product->id)->count() > 0)
-                                            <a href="{{ route('cart.index') }}" class="btn btn-primary">Go to
-                                                Cart</a>
-                                            @else
-                                            <form method="POST" action="{{ route('cart.add') }}">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{ $product->id }}">
-                                                <input type="hidden" name="name" value="{{ $product->name }}">
-                                                <input type="hidden" name="quantity" value="1">
-                                                <input type="hidden" name="price"
-                                                    value="{{ $product->sale_price ?: $product->regular_price }}">
-                                                <button type="submit" class="btn btn-primary">Add to
-                                                    Cart</button>
-                                            </form>
-                                            @endif
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
+
+                                {{-- Card Body --}}
+                                <div class="card-body text-center">
+                                    <p class="card-title small text-muted mb-1">{{ $product->category->name }}</p>
+                                    <h6 class="card-title mb-2">
+                                        <a href="{{ route('shop.product.details', ['product_slug' => $product->slug]) }}"
+                                            class="text-dark text-decoration-none">{{ $product->name }}</a>
+                                    </h6>
+
+                                    {{-- Price --}}
+                                    <div class="mb-2">
+                                        @if ($product->sale_price)
+                                        <span class="text-decoration-line-through text-muted me-2">₹{{
+                                            $product->regular_price }}</span>
+                                        <span class="fw-bold text-danger">₹{{ $product->sale_price }}</span>
+                                        @else
+                                        <span class="fw-bold text-dark">₹{{ $product->regular_price }}</span>
+                                        @endif
+                                    </div>
+
+                                    {{-- Reviews --}}
+                                    @php
+                                    $productReviews = $reviews->where('product_id', $product->id);
+                                    $averageRating = round($productReviews->avg('rating'), 1);
+                                    $roundedRating = floor($averageRating);
+                                    @endphp
+
+                                    <div class="d-flex justify-content-center align-items-center mb-3">
+                                        <div class="product-single__rating">
+                                            <div class="reviews-group d-flex">
+
+                                                {{-- Filled stars --}}
+                                                @for ($i = 1; $i <= $roundedRating; $i++) <svg class="review-star"
+                                                    viewBox="0 0 9 9" xmlns="http://www.w3.org/2000/svg" fill="#FFD700">
+                                                    <use href="#icon_star" />
+                                                    </svg>
+                                                    @endfor
+
+                                                    {{-- Empty stars --}}
+                                                    @for ($i = $roundedRating + 1; $i <= 5; $i++) <svg
+                                                        class="star-rating__star-icon" width="12" height="12"
+                                                        fill="#ccc" viewBox="0 0 12 12"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M11.1429 5.04687C11.1429 4.84598 10.9286 4.76562 10.7679 4.73884L7.40625 4.25L5.89955 1.20312C5.83929 1.07589 5.72545 0.928571 5.57143 0.928571C5.41741 0.928571 5.30357 1.07589 5.2433 1.20312L3.73661 4.25L0.375 4.73884C0.207589 4.76562 0 4.84598 0 5.04687C0 5.16741 0.0870536 5.28125 0.167411 5.3683L2.60491 7.73884L2.02902 11.0871C2.02232 11.1339 2.01563 11.1741 2.01563 11.221C2.01563 11.3951 2.10268 11.5558 2.29688 11.5558C2.39063 11.5558 2.47768 11.5223 2.56473 11.4754L5.57143 9.89509L8.57813 11.4754C8.65848 11.5223 8.75223 11.5558 8.84598 11.5558C9.04018 11.5558 9.12054 11.3951 9.12054 11.221C9.12054 11.1741 9.12054 11.1339 9.11384 11.0871L8.53795 7.73884L10.9688 5.3683C11.0558 5.28125 11.1429 5.16741 11.1429 5.04687Z" />
+                                                        </svg>
+                                                        @endfor
+                                            </div>
+
+                                            <span class="reviews-note text-lowercase text-secondary ms-1">
+                                                {{ $productReviews->count() }} reviews
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {{-- Add to Cart --}}
+                                    <div class="product-action transition">
+                                        @if (Cart::instance('cart')->content()->where('id', $product->id)->count() >
+                                        0)
+                                        <a href="{{ route('cart.index') }}" class="btn btn-primary">Go to
+                                            Cart</a>
+                                        @else
+                                        <form method="POST" action="{{ route('cart.add') }}">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $product->id }}">
+                                            <input type="hidden" name="name" value="{{ $product->name }}">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <input type="hidden" name="price"
+                                                value="{{ $product->sale_price ?: $product->regular_price }}">
+                                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                        </form>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
-                            @endforeach
                         </div>
-                        {{--
-                        <!-- /.swiper-wrapper --> --}}
+                        @endforeach
                     </div>
-                    {{--
-                    <!-- /.swiper-container js-swiper-slider --> --}}
-
-                    <div
-                        class="products-carousel__prev position-absolute top-50 d-flex align-items-center justify-content-center">
-                        <svg width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
-                            <use href="#icon_prev_md" />
-                        </svg>
-                    </div>
-                    {{--
-                    <!-- /.products-carousel__prev --> --}}
-                    <div
-                        class="products-carousel__next position-absolute top-50 d-flex align-items-center justify-content-center">
-                        <svg width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
-                            <use href="#icon_next_md" />
-                        </svg>
-                    </div>
-                    {{--
-                    <!-- /.products-carousel__next --> --}}
-
                     <div class="products-pagination mt-4 mb-5 d-flex align-items-center justify-content-center">
                     </div>
-
-                    {{--
-                    <!-- /.products-pagination --> --}}
                 </div>
                 @endif
             </div>
@@ -415,6 +407,7 @@
                 <h2 class="">Reviews</h2>
                 <div class="product-single__reviews-list">
                     @foreach ($reviews as $review)
+                    @if ($review->product_id == $product->id)
                     <div class="product-single__reviews-item">
                         <div class="customer-avatar">
                             <img loading="lazy" src="{{ asset('storage/uploads/reviewImage/' . $review->image) }}"
@@ -431,13 +424,14 @@
                                             <use href="#icon_star" />
                                         </svg>
                                         @endfor
-                                        {{-- Empty stars (if rating < 5) --}} @for ($i=$review->rating + 1; $i
-                                            <= 5; $i++) <svg class="star-rating__star-icon" width="12" height="12"
-                                                fill="#ccc" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M11.1429 5.04687C11.1429 4.84598 10.9286 4.76562 10.7679 4.73884L7.40625 4.25L5.89955 1.20312C5.83929 1.07589 5.72545 0.928571 5.57143 0.928571C5.41741 0.928571 5.30357 1.07589 5.2433 1.20312L3.73661 4.25L0.375 4.73884C0.207589 4.76562 0 4.84598 0 5.04687C0 5.16741 0.0870536 5.28125 0.167411 5.3683L2.60491 7.73884L2.02902 11.0871C2.02232 11.1339 2.01563 11.1741 2.01563 11.221C2.01563 11.3951 2.10268 11.5558 2.29688 11.5558C2.39063 11.5558 2.47768 11.5223 2.56473 11.4754L5.57143 9.89509L8.57813 11.4754C8.65848 11.5223 8.75223 11.5558 8.84598 11.5558C9.04018 11.5558 9.12054 11.3951 9.12054 11.221C9.12054 11.1741 9.12054 11.1339 9.11384 11.0871L8.53795 7.73884L10.9688 5.3683C11.0558 5.28125 11.1429 5.16741 11.1429 5.04687Z" />
-                                                </svg>
-                                                @endfor
+                                        {{-- Empty stars --}}
+                                        @for ($i = $review->rating + 1; $i <= 5; $i++) <svg
+                                            class="star-rating__star-icon" width="12" height="12" fill="#ccc"
+                                            viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M11.1429 5.04687C11.1429 4.84598 10.9286 4.76562 10.7679 4.73884L7.40625 4.25L5.89955 1.20312C5.83929 1.07589 5.72545 0.928571 5.57143 0.928571C5.41741 0.928571 5.30357 1.07589 5.2433 1.20312L3.73661 4.25L0.375 4.73884C0.207589 4.76562 0 4.84598 0 5.04687C0 5.16741 0.0870536 5.28125 0.167411 5.3683L2.60491 7.73884L2.02902 11.0871C2.02232 11.1339 2.01563 11.1741 2.01563 11.221C2.01563 11.3951 2.10268 11.5558 2.29688 11.5558C2.39063 11.5558 2.47768 11.5223 2.56473 11.4754L5.57143 9.89509L8.57813 11.4754C8.65848 11.5223 8.75223 11.5558 8.84598 11.5558C9.04018 11.5558 9.12054 11.3951 9.12054 11.221C9.12054 11.1741 9.12054 11.1339 9.11384 11.0871L8.53795 7.73884L10.9688 5.3683C11.0558 5.28125 11.1429 5.16741 11.1429 5.04687Z" />
+                                            </svg>
+                                            @endfor
                                 </div>
                             </div>
                             <div class="review-date">{{ $review->created_at->format('m-d-Y') }}</div>
@@ -446,17 +440,22 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     @endforeach
+
 
                 </div>
                 <div class="product-single__review-form">
+                    {{-- @dd($productSingle->id); --}}
+
                     <form name="customer-review-form" method="POST" action="{{ route('user.reviews.store') }}"
                         enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        {{-- @dd($product->id) --}}
+                        <input type="hidden" name="product_id" value="{{ $productSingle->id }}">
                         <input type="hidden" name="rating" id="form-input-rating" value="">
 
-                        <h5>Be the first to review “Message {{ $product->name }}”</h5>
+                        <h5>Be the first to review “Message {{ $productSingle->name }}”</h5>
                         <p>Your email address will not be published. Required fields are marked *</p>
 
                         <div class="select-star-rating">
@@ -496,8 +495,7 @@
                             </div>
 
                             <div class="upload-image flex flex-wrap gap-4 items-center">
-                                <div class="item w-32 h-32 rounded-lg overflow-hidden shadow-md border border-gray-200"
-                                    id="imgpreview">
+                                <div class="item w-1 h-1" id="imgpreview">
                                     @if (old('image'))
                                     <img src="{{ asset('storage/uploads/reviewImage/' . old('image')) }}"
                                         class="object-cover w-full h-full transition duration-300 hover:scale-105"

@@ -24,8 +24,16 @@ class CartController extends Controller
 
     public function add_to_cart(Request $request)
     {
-        Cart::instance('cart')->add($request->id, $request->name, $request->quantity, $request->price)->associate('App\Models\Product');
+        Cart::instance('cart')->add(
+            $request->id,
+            $request->name,
+            $request->quantity,
+            $request->price,
+            ['size' => $request->selected_size]
+        )->associate('App\Models\Product');
+
         return redirect()->route('cart.index')->with('success', 'Product added to cart successfully!');
+
     }
 
     public function increase_cart_quantity($rowId)
@@ -137,6 +145,7 @@ class CartController extends Controller
                 'address' => 'required',
                 'locality' => 'required',
                 'landmark' => 'required',
+                // 'user_id' => 'required'
             ]);
 
             $address = Address::create([
@@ -153,6 +162,8 @@ class CartController extends Controller
                 'isdefault' => true,
             ]);
         }
+        // dd($request)    ;
+        // dd($address);
 
         $this->setAmountforCheckout();
 
@@ -171,6 +182,7 @@ class CartController extends Controller
                 'order_id' => $order->id,
                 'price' => $item->price,
                 'quantity' => $item->qty,
+                'options' => $item->options->size,
             ]);
         }
 
@@ -179,12 +191,13 @@ class CartController extends Controller
                 'user_id' => $user_id,
                 'order_id' => $order->id,
                 'mode' => 'razorpay',
-                'razorpay_order_id' => $request->razorpay_order_id, // From frontend
+                'razorpay_order_id' => $request->razorpay_order_id,
                 'razorpay_payment_id' => $request->razorpay_payment_id,
                 'status' => $request->razorpay_payment_id ? 'success' : 'failed',
             ]);
         }
 
+        // dd($request->mode);
 
         if ($request->mode == 'cod') {
             Transaction::create([

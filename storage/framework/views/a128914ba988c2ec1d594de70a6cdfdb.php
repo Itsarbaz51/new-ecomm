@@ -50,6 +50,8 @@ unset($__defined_vars); ?>
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('css/custom.css')); ?>">
 
 
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <style>
         .logout-text {
             color: red;
@@ -74,8 +76,7 @@ unset($__defined_vars); ?>
                 <div class="section-menu-left">
                     <div class="box-logo">
                         <a href="<?php echo e(route('admin.index')); ?>" id="site-logo-inner">
-                            <img class="" id="logo_header" alt="logo"
-                                src="<?php echo e(asset('images/logo/logo.png')); ?>"
+                            <img class="" id="logo_header" alt="logo" src="<?php echo e(asset('images/logo/logo.png')); ?>"
                                 data-light="<?php echo e(asset('images/logo/logo.png')); ?>"
                                 data-dark="<?php echo e(asset('images/logo/logo.png')); ?>">
                         </a>
@@ -120,8 +121,8 @@ unset($__defined_vars); ?>
                                 <form class="form-search flex-grow">
                                     <fieldset class="name">
                                         <input type="text" placeholder="Search here..." class="show-search"
-                                            id="search-input" name="name" tabindex="2" value=""
-                                            aria-required="true" required="" autocomplete="off">
+                                            id="search-input" name="name" tabindex="2" value="" aria-required="true"
+                                            required="" autocomplete="off">
                                     </fieldset>
                                     <div class="button-submit">
                                         <button class="" type="submit"><i class="icon-search"></i></button>

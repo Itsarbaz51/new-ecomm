@@ -40,21 +40,7 @@
                 <form class="form-new-product form-style-1" action="<?php echo e(route('admin.slide.store')); ?>" method="POST"
                     enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
-                    <fieldset class="name">
-                        <div class="body-title">Tagline <span class="tf-color-1">*</span></div>
-                        <input class="flex-grow" type="text" placeholder="Tagline" name="tagline" tabindex="0"
-                            value="<?php echo e(old('tagline')); ?>" aria-required="true" required="">
-                    </fieldset>
-                    <?php $__errorArgs = ['tagline'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
+                    
                     <fieldset class="name">
                         <div class="body-title">Title<span class="tf-color-1">*</span></div>
                         <input class="flex-grow" type="text" placeholder="Title" name="title" tabindex="0"
@@ -70,21 +56,7 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                    <fieldset class="name">
-                        <div class="body-title">Subtitle<span class="tf-color-1">*</span></div>
-                        <input class="flex-grow" type="text" placeholder="Subtitle" name="subtitle" tabindex="0"
-                            value="<?php echo e(old('subtitle')); ?>" aria-required="true" required="">
-                    </fieldset>
-                    <?php $__errorArgs = ['subtitle'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
-                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
+                    
                     <fieldset class="name">
                         <div class="body-title">Link<span class="tf-color-1">*</span></div>
                         <input class="flex-grow" type="text" placeholder="Link" name="link" tabindex="0"

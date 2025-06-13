@@ -83,7 +83,7 @@
                             <th class="text-center">SKU</th>
                             <th class="text-center">Category</th>
                             <th class="text-center">Brand</th>
-                            <th class="text-center">Options</th>
+                            <th class="text-center">Options (SIZE)</th>
                             <th class="text-center">Return Status</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -102,6 +102,7 @@
                                             target="_blank" class="body-title-2">{{ $item->product->name }}</a>
                                     </div>
                                 </td>
+                                {{--  @dd($item->options)  --}}
                                 <td class="text-center">₹{{ $item->price }}</td>
                                 <td class="text-center">{{ $item->quantity }}</td>
                                 <td class="text-center">{{ $item->product->SKU }}</td>

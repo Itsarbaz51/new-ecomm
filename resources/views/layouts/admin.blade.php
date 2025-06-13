@@ -22,6 +22,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
 
 
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <style>
         .logout-text {
             color: red;
@@ -46,8 +48,7 @@
                 <div class="section-menu-left">
                     <div class="box-logo">
                         <a href="{{ route('admin.index') }}" id="site-logo-inner">
-                            <img class="" id="logo_header" alt="logo"
-                                src="{{ asset('images/logo/logo.png') }}"
+                            <img class="" id="logo_header" alt="logo" src="{{ asset('images/logo/logo.png') }}"
                                 data-light="{{ asset('images/logo/logo.png') }}"
                                 data-dark="{{ asset('images/logo/logo.png') }}">
                         </a>
@@ -92,8 +93,8 @@
                                 <form class="form-search flex-grow">
                                     <fieldset class="name">
                                         <input type="text" placeholder="Search here..." class="show-search"
-                                            id="search-input" name="name" tabindex="2" value=""
-                                            aria-required="true" required="" autocomplete="off">
+                                            id="search-input" name="name" tabindex="2" value="" aria-required="true"
+                                            required="" autocomplete="off">
                                     </fieldset>
                                     <div class="button-submit">
                                         <button class="" type="submit"><i class="icon-search"></i></button>

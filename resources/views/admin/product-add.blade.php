@@ -1,4 +1,7 @@
 <x-admin-layout title="product-add">
+<style>
+
+</style>
     <div class="main-content-inner">
         <!-- main-content-wrap -->
         <div class="main-content-wrap">
@@ -34,24 +37,24 @@
                     <fieldset class="name">
                         <div class="body-title mb-10">Product name <span class="tf-color-1">*</span>
                         </div>
-                        <input class="mb-10" type="text" placeholder="Enter product name" name="name"
-                            tabindex="0" value="{{ old('name') }}" aria-required="true" required="">
+                        <input class="mb-10" type="text" placeholder="Enter product name" name="name" tabindex="0"
+                            value="{{ old('name') }}" aria-required="true" required="">
                         <div class="text-tiny">Do not exceed 100 characters when entering the
                             product name.</div>
                     </fieldset>
                     @error('name')
-                        <span class="alert alert-danger text-center">{{ $message }}</span>
+                    <span class="alert alert-danger text-center">{{ $message }}</span>
                     @enderror
 
                     <fieldset class="name">
                         <div class="body-title mb-10">Slug <span class="tf-color-1">*</span></div>
-                        <input class="mb-10" type="text" placeholder="Enter product slug" name="slug"
-                            tabindex="0" value="{{ old('slug') }}" aria-required="true" required="">
+                        <input class="mb-10" type="text" placeholder="Enter product slug" name="slug" tabindex="0"
+                            value="{{ old('slug') }}" aria-required="true" required="">
                         <div class="text-tiny">Do not exceed 100 characters when entering the
                             product name.</div>
                     </fieldset>
                     @error('slug')
-                        <span class="alert alert-danger text-center">{{ $message }}</span>
+                    <span class="alert alert-danger text-center">{{ $message }}</span>
                     @enderror
 
                     <div class="gap22 cols">
@@ -62,13 +65,13 @@
                                 <select class="" name="category_id">
                                     <option>Choose category</option>
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </fieldset>
                         @error('category_id')
-                            <span class="alert alert-danger text-center">{{ $message }}</span>
+                        <span class="alert alert-danger text-center">{{ $message }}</span>
                         @enderror
                         <fieldset class="brand">
                             <div class="body-title mb-10">Brand <span class="tf-color-1">*</span>
@@ -77,36 +80,87 @@
                                 <select class="" name="brand_id">
                                     <option>Choose Brand</option>
                                     @foreach ($brands as $brand)
-                                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                        </fieldset>brand
+                        </fieldset>
                         @error('brand_id')
-                            <span class="alert alert-danger text-center">{{ $message }}</span>
+                        <span class="alert alert-danger text-center">{{ $message }}</span>
                         @enderror
                     </div>
 
+                    <div class="flex flex-col gap-y-2">
+
+                        <!-- Size Selector -->
+                        <fieldset class="space-y-2">
+                            <legend class="body-title mb-10">Size <span class="tf-color-1">*</span>
+                            </legend>
+                            <div class="flex gap-3 overflow-x-auto pb-2">
+                                <label class="inline-flex items-center space-x-1">
+                                    <input type="checkbox" id="freeSize" name="sizes" value="Free"
+                                        class="accent-blue-500">
+                                    <span class="text-sm">Free</span>
+                                </label>
+                                @foreach (['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'] as $size)
+                                <label class="inline-flex items-center space-x-1">
+                                    <input type="checkbox" class="size-option accent-blue-500" name="sizes[]"
+                                        value="{{ $size }}">
+                                    <span class="text-sm">{{ $size }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                        </fieldset>
+
+                        <!-- Color Selector -->
+                        {{--  <fieldset class="space-y-2">
+                            <legend class="body-title mb-10">Color <span class="tf-color-1">*</span>
+                            </legend>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                                @foreach (['Black', 'White', 'Red', 'Blue', 'Green', 'Yellow', 'Pink', 'Orange',
+                                'Purple', 'Gray', 'Navy', 'Brown', 'Beige', 'Maroon', 'Olive'] as $color)
+                                <label class="inline-flex items-center space-x-1">
+                                    <input type="checkbox" name="colors[]" value="{{ $color }}" class="accent-blue-500">
+                                    <span class="text-sm">{{ $color }}</span>
+                                </label>
+                                @endforeach
+                            </div>
+                        </fieldset>  --}}
+
+                        <!-- Weight Field -->
+                        <fieldset class="space-y-2">
+                            <label for="weight" class="body-title mb-10">
+                                Weight <span class="tf-color-1">*</span> <span
+                                    class="text-sm text-gray-500">(gm)</span>
+                            </label>
+                            <input type="text" name="weight" placeholder="Enter product weight" value="{{ old('weight') }}"
+                                required
+                                class="mb-10">
+                        </fieldset>
+
+                    </div>
+
+
                     <fieldset class="shortdescription">
                         <div class="body-title mb-10">Short Description <span class="tf-color-1">*</span></div>
-                        <textarea class="mb-10 ht-150" name="short_description" placeholder="Short Description" tabindex="0"
-                            aria-required="true" required="">{{ old('short_description') }}</textarea>
+                        <textarea class="mb-10 ht-150" name="short_description" placeholder="Short Description"
+                            tabindex="0" aria-required="true" required="">{{ old('short_description') }}</textarea>
                         <div class="text-tiny">Do not exceed 100 characters when entering the
                             product name.</div>
                     </fieldset>
                     @error('short_description')
-                        <span class="alert alert-danger text-center">{{ $message }}</span>
+                    <span class="alert alert-danger text-center">{{ $message }}</span>
                     @enderror
                     <fieldset class="description">
                         <div class="body-title mb-10">Description <span class="tf-color-1">*</span>
                         </div>
-                        <textarea class="mb-10" name="description" placeholder="Description" tabindex="0" aria-required="true"
-                            required="">{{ old('description') }}</textarea>
+                        <textarea class="mb-10" name="description" placeholder="Description" tabindex="0"
+                            aria-required="true" required="">{{ old('description') }}</textarea>
                         <div class="text-tiny">Do not exceed 100 characters when entering the
                             product name.</div>
                     </fieldset>
                     @error('description')
-                        <span class="alert alert-danger text-center">{{ $message }}</span>
+                    <span class="alert alert-danger text-center">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="wg-box">
@@ -115,8 +169,7 @@
                         </div>
                         <div class="upload-image flex-grow">
                             <div class="item" id="imgpreview" style="display:none">
-                                <img src="../../../localhost_8000/images/upload/upload-1.png" class="effect8"
-                                    alt="">
+                                <img src="../../../localhost_8000/images/upload/upload-1.png" class="effect8" alt="">
                             </div>
                             <div id="upload-file" class="item up-load">
                                 <label class="uploadfile" for="myFile">
@@ -131,7 +184,7 @@
                         </div>
                     </fieldset>
                     @error('image')
-                        <span class="alert alert-danger text-center">{{ $message }}</span>
+                    <span class="alert alert-danger text-center">{{ $message }}</span>
                     @enderror
 
                     <fieldset>
@@ -145,27 +198,25 @@
                                     <span class="icon">
                                         <i class="icon-upload-cloud"></i>
                                     </span>
-                                    <span class="text-tiny">Drop your images here or select <span
-                                            class="tf-color">click to browse</span></span>
-                                    <input type="file" id="gFile" name="images[]" accept="image/*"
-                                        multiple="">
+                                    <span class="text-tiny">Drop your images here or select <span class="tf-color">click
+                                            to browse</span></span>
+                                    <input type="file" id="gFile" name="images[]" accept="image/*" multiple="">
                                 </label>
                             </div>
                         </div>
                     </fieldset>
                     @error('images')
-                        <span class="alert alert-danger text-center">{{ $message }}</span>
+                    <span class="alert alert-danger text-center">{{ $message }}</span>
                     @enderror
 
                     <div class="cols gap22">
                         <fieldset class="name">
                             <div class="body-title mb-10">Regular Price <span class="tf-color-1">*</span></div>
-                            <input class="mb-10" type="text" placeholder="Enter regular price"
-                                name="regular_price" tabindex="0" value="{{ old('regular-price') }}"
-                                aria-required="true" required="">
+                            <input class="mb-10" type="text" placeholder="Enter regular price" name="regular_price"
+                                tabindex="0" value="{{ old('regular-price') }}" aria-required="true" required="">
                         </fieldset>
                         @error('regular_price')
-                            <span class="alert alert-danger text-center">{{ $message }}</span>
+                        <span class="alert alert-danger text-center">{{ $message }}</span>
                         @enderror
                         <fieldset class="name">
                             <div class="body-title mb-10">Sale Price <span class="tf-color-1">*</span></div>
@@ -173,7 +224,7 @@
                                 tabindex="0" value="{{ old('sale_price') }}" aria-required="true" required="">
                         </fieldset>
                         @error('sale_price')
-                            <span class="alert alert-danger text-center">{{ $message }}</span>
+                        <span class="alert alert-danger text-center">{{ $message }}</span>
                         @enderror
                     </div>
 
@@ -182,20 +233,20 @@
                         <fieldset class="name">
                             <div class="body-title mb-10">SKU <span class="tf-color-1">*</span>
                             </div>
-                            <input class="mb-10" type="text" placeholder="Enter SKU" name="SKU"
-                                tabindex="0" value="{{ old('SKU') }}" aria-required="true" required="">
+                            <input class="mb-10" type="text" placeholder="Enter SKU" name="SKU" tabindex="0"
+                                value="{{ old('SKU') }}" aria-required="true" required="">
                         </fieldset>
                         @error('SKU')
-                            <span class="alert alert-danger text-center">{{ $message }}</span>
+                        <span class="alert alert-danger text-center">{{ $message }}</span>
                         @enderror
                         <fieldset class="name">
                             <div class="body-title mb-10">Quantity <span class="tf-color-1">*</span>
                             </div>
-                            <input class="mb-10" type="text" placeholder="Enter quantity" name="quantity"
-                                tabindex="0" value="{{ old('quantity') }}" aria-required="true" required="">
+                            <input class="mb-10" type="text" placeholder="Enter quantity" name="quantity" tabindex="0"
+                                value="{{ old('quantity') }}" aria-required="true" required="">
                         </fieldset>
                         @error('quantity')
-                            <span class="alert alert-danger text-center">{{ $message }}</span>
+                        <span class="alert alert-danger text-center">{{ $message }}</span>
                         @enderror
                     </div>
 
@@ -210,7 +261,7 @@
                             </div>
                         </fieldset>
                         @error('stock_status')
-                            <span class="alert alert-danger text-center">{{ $message }}</span>
+                        <span class="alert alert-danger text-center">{{ $message }}</span>
                         @enderror
                         <fieldset class="name">
                             <div class="body-title mb-10">Featured</div>
@@ -222,7 +273,7 @@
                             </div>
                         </fieldset>
                         @error('featured')
-                            <span class="alert alert-danger text-center">{{ $message }}</span>
+                        <span class="alert alert-danger text-center">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="cols gap10">
@@ -261,11 +312,11 @@
             }
         });
         $('#gFile').on('change', function(e) {
-           const photoInp = $("#gFile")
-           const gPhotos = this.files;
-           $.each(gPhotos, function(key, value){
-            $('#galUpload').prepend(`<div class='item gitems'><img src="${URL.createObjectURL(value)}"/></div>`)
-           }); 
+            const photoInp = $("#gFile")
+            const gPhotos = this.files;
+            $.each(gPhotos, function(key, value) {
+                $('#galUpload').prepend(`<div class='item gitems'><img src="${URL.createObjectURL(value)}"/></div>`)
+            });
         });
 
 
@@ -281,4 +332,15 @@
                 .replace(/\-\-+/g, '-');
         }
     });
+
+
+    document.getElementById('freeSize').addEventListener('change', function() {
+        const isFreeChecked = this.checked;
+        const sizeOptions = document.querySelectorAll('.size-option');
+        sizeOptions.forEach(cb => {
+            cb.disabled = isFreeChecked;
+            if (isFreeChecked) cb.checked = false;
+        });
+    });
+
 </script>

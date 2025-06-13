@@ -11,25 +11,25 @@
 
     <div class="container mt-5">
         <h3 class="mb-4">OTP Verification</h3>
-    
+
         <?php if(session('message')): ?>
             <div class="alert alert-success"><?php echo e(session('message')); ?></div>
         <?php endif; ?>
-    
+
         <?php if($errors->any()): ?>
             <div class="alert alert-danger"><?php echo e(implode(', ', $errors->all())); ?></div>
         <?php endif; ?>
-    
+
         <form method="POST" action="<?php echo e(route('otp.verify.submit')); ?>">
             <?php echo csrf_field(); ?>
             <div class="mb-3">
-                <label class="form-label">Enter the OTP sent to your mobile</label>
+                <label class="form-label">Enter the OTP sent to your email.</label>
                 <input type="text" name="otp" class="form-control" required maxlength="4">
             </div>
-    
+
             <button type="submit" class="btn btn-success w-100">Verify OTP</button>
         </form>
-    
+
         <div class="text-center mt-3">
             <a href="<?php echo e(route('otp.resend')); ?>">Didn't get OTP? Resend</a>
         </div>
