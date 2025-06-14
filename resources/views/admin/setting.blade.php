@@ -68,7 +68,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
 
-                                <fieldset>
+                                {{--  <fieldset>
                                     <div class="body-title">
                                         Upload images <span class="tf-color-1">*</span>
                                     </div>
@@ -85,7 +85,6 @@
                                             @endif
                                         </div>
 
-                                        {{-- Upload input always shown --}}
                                         <div id="upload-file" class="item up-load">
                                             <label class="uploadfile" for="myFile">
                                                 <span class="icon">
@@ -101,10 +100,10 @@
 
                                     </div>
                                 </fieldset>
-
                                 @error('image')
                                     <span class="alert alert-danger text-center">{{ $message }}</span>
-                                @enderror
+                                @enderror --}}
+
 
                                 <div class="row">
                                     <div class="col-md-12">

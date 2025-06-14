@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="container mt-5">
+    <div class="w-xl p-4 mx-auto">
         <h3 class="mb-4">OTP Verification</h3>
 
         @if(session('message'))
@@ -22,7 +22,7 @@
         </form>
 
         <div class="text-center mt-3">
-            <a href="{{ route('otp.resend') }}">Didn't get OTP? Resend</a>
+            <a href="{{ route('otp.resend') }}">Did not get OTP? Resend</a>
         </div>
     </div>
 </x-app-layout>

@@ -98,50 +98,8 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
 
-                                <fieldset>
-                                    <div class="body-title">
-                                        Upload images <span class="tf-color-1">*</span>
-                                    </div>
+                                
 
-                                    <div class="upload-image flex-grow">
-
-                                        <div class="item" id="imgpreview">
-                                            <?php if($user->image): ?>
-                                                <img src="<?php echo e(asset('storage/uploads/adminImage/' . $user->image)); ?>"
-                                                    class="effect8" alt="User Image">
-                                            <?php else: ?>
-                                                <img src="<?php echo e(asset('images/default-admin-image.png')); ?>" class="effect8"
-                                                    alt="Default Avatar">
-                                            <?php endif; ?>
-                                        </div>
-
-                                        
-                                        <div id="upload-file" class="item up-load">
-                                            <label class="uploadfile" for="myFile">
-                                                <span class="icon">
-                                                    <i class="icon-upload-cloud"></i>
-                                                </span>
-                                                <span class="body-text">
-                                                    Drop your images here or select <span class="tf-color">click to
-                                                        browse</span>
-                                                </span>
-                                                <input type="file" id="myFile" name="image" accept="image/*">
-                                            </label>
-                                        </div>
-
-                                    </div>
-                                </fieldset>
-
-                                <?php $__errorArgs = ['image'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                    <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
-                                <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
 
                                 <div class="row">
                                     <div class="col-md-12">

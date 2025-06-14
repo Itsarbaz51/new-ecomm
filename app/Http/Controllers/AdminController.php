@@ -89,8 +89,6 @@ class AdminController extends Controller
         ]);
     }
 
-
-
     // brands
     public function brands()
     {
@@ -481,6 +479,7 @@ class AdminController extends Controller
         return redirect()->route('admin.products')->with('status', 'Product delete successfully');
     }
 
+    // coupons
     public function coupons()
     {
         $coupons = Coupon::orderBy('expiry_date', 'DESC')->paginate(12);
@@ -562,6 +561,7 @@ class AdminController extends Controller
         return redirect()->route('admin.coupons')->with('status', 'Coupon deleted successfully');
     }
 
+    // orders
     public function orders()
     {
         $orders = Order::orderBy('created_at', 'DESC')->paginate(12);
@@ -632,6 +632,8 @@ class AdminController extends Controller
     // }
 
 
+
+    // slides
     public function slides()
     {
         $slides = Slide::orderBy('id', 'DESC')->paginate(12);
@@ -726,6 +728,7 @@ class AdminController extends Controller
         return redirect()->route('admin.slides')->with('status', 'Slide deleted successfully');
     }
 
+    // contacts
     public function contacts()
     {
         $contacts = Contact::orderBy('created_at', 'DESC')->paginate(10);

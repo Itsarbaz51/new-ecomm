@@ -127,7 +127,7 @@
 
         @if ($orders->count())
             <div class="orders-grid">
-                <audio id="orderSound" src="{{ asset('public/assets/sounds/new-order.wav') }}" preload="auto"></audio>
+                {{--  <audio id="orderSound" src="{{ asset('public/assets/sounds/new-order.wav') }}" preload="auto"></audio>  --}}
 
                 @foreach ($orders as $order)
                     <div class="order-card">
@@ -178,7 +178,7 @@
         @endif
     </div>
 
-    @if ($orders->count())
+    {{--  @if ($orders->count())
         <script>
             window.addEventListener('DOMContentLoaded', function () {
                 const sound = document.getElementById('orderSound');
@@ -194,5 +194,5 @@
                 }
             });
         </script>
-    @endif
+    @endif  --}}
 </x-admin-layout>

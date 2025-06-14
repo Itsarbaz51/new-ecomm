@@ -11,13 +11,7 @@
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown"
             aria-expanded="false">
             <span class="header-user wg-user">
-                <span class="image">
-                    <?php if(Auth::user()->image): ?>
-                        <img src="<?php echo e(asset('storage/uploads/adminImage/' . Auth::user()->image)); ?>" alt="Admin Image" />
-                    <?php else: ?>
-                        <img src="<?php echo e(asset('images/default-admin-image.png')); ?>" alt="Default Avatar" />
-                    <?php endif; ?>
-                </span>
+                
                 <span class="flex flex-column">
                     <span class="body-title mb-2"><?php echo e(Auth::user()->name); ?></span>
                     <span class="text-tiny"><?php echo e(Auth::user()->utype); ?></span>

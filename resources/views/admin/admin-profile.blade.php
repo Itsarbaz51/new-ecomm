@@ -11,13 +11,13 @@
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown"
             aria-expanded="false">
             <span class="header-user wg-user">
-                <span class="image">
+                {{--  <span class="image">
                     @if (Auth::user()->image)
                         <img src="{{ asset('storage/uploads/adminImage/' . Auth::user()->image) }}" alt="Admin Image" />
                     @else
                         <img src="{{ asset('images/default-admin-image.png') }}" alt="Default Avatar" />
                     @endif
-                </span>
+                </span>  --}}
                 <span class="flex flex-column">
                     <span class="body-title mb-2">{{ Auth::user()->name }}</span>
                     <span class="text-tiny">{{ Auth::user()->utype }}</span>
