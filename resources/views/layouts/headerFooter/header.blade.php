@@ -256,7 +256,7 @@
             <a href="{{ route('home.about') }}">About Us</a>
             <a href="{{ route('home.contact') }}">Contact Us</a>
         </nav>
-        <div class="actions absolute top-10 lg:top-6 right-15 lg:right-80 ">
+        <div class="actions absolute top-10 sm:right-20 lg:right-62 lg:top-6 right-15 xl:right-80 ">
             {{--
             <!-- <div><a href="#" class="me-3"><i class="bi bi-search"></i></a><a href="cart.html"><i class="bi bi-cart"></i>0</a></div> -->
             --}}
@@ -283,7 +283,7 @@
                     </a>
                 </div>
 
-                <div class="w-screen absolute -right-[4rem] lg:-right-[0rem] top-8">
+                <div class="w-screen absolute -left-[11rem] sm:-left-[37rem] lg:-left-[40rem] xl:-left-[59rem] top-8">
                     <div class="search-popup js-hidden-content">
                         <form action="#" method="GET" class="search-field container">
                             <p class="text-uppercase text-secondary fw-medium mb-4">What are you looking for?</p>
