@@ -1,7 +1,7 @@
 <x-app-layout title="account-details">
-    <main class="pt-24">
+   <main class="pt-16 pb-10 bg-gray-50">
         <section class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8">Account Details</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Account Details</h2>
             <div class="flex flex-col lg:flex-row gap-8">
 
                 {{-- Sidebar --}}

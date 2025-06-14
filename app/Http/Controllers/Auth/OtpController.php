@@ -9,8 +9,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
 
 class OtpController extends Controller
 {
@@ -23,55 +26,67 @@ class OtpController extends Controller
     {
         $request->validate(['otp' => 'required|digits:4']);
 
-        $otp = Session::get('otp');
-        $userId = Session::get('otp_user_id');
+        $sessionOtp = Session::get('otp');
+        $email = Session::get('otp_user_email');
         $createdAt = Session::get('otp_created_at');
 
-        if (!$otp || !$userId || !$createdAt) {
-            return redirect()->route('register')->withErrors('Session expired. Please register again.');
+        if (!$sessionOtp || !$email || !$createdAt) {
+            return redirect()->route('register')->withErrors(['message' => 'Session expired. Please register again.']);
         }
 
-        if (Carbon::parse($createdAt)->addMinutes(10)->isPast()) {
-            return redirect()->route('otp.resend')->withErrors('OTP expired. Please request a new one.');
+        if (now()->diffInMinutes($createdAt) > 10) {
+            return redirect()->route('otp.resend')->withErrors(['message' => 'OTP expired. Please request a new one.']);
         }
 
-        if ($request->otp != $otp) {
-            return back()->withErrors('Invalid OTP.');
+        if ($request->otp != $sessionOtp) {
+            return back()->withErrors(['otp' => 'Invalid OTP.']);
         }
 
-        $user = User::find($userId);
-        if ($user) {
-            $user->is_email_verified = true;
-            $user->save();
+        // Create user now
+        $userData = Session::get('user_register_data');
 
-            Session::forget(['otp', 'otp_user_id', 'otp_created_at']);
-
-            Auth::login($user);
-
-            return redirect()->route('home.index');
+        if (!$userData) {
+            return redirect()->route('register')->withErrors(['message' => 'Registration data missing. Please try again.']);
         }
 
-        return redirect()->route('register')->withErrors('User not found.');
+        // Prevent duplicate user creation
+        if (User::where('email', $email)->exists()) {
+            return redirect()->route('login')->withErrors(['message' => 'User already exists. Please login.']);
+        }
+
+        $user = User::create([
+            'name' => $userData['name'],
+            'email' => $userData['email'],
+            'mobile' => $userData['mobile'],
+            'password' => Hash::make($userData['password']),
+            'remember_token' => Str::random(60),
+            'is_email_verified' => true,
+        ]);
+
+        Auth::login($user);
+
+        // Clear session
+        Session::forget(['otp', 'otp_user_email', 'otp_created_at', 'user_register_data']);
+
+        return redirect()->route('home.index')->with('success', 'Registration successful!');
     }
-
     public function resendOtp()
     {
-        $userId = Session::get('otp_user_id');
-        $user = User::find($userId);
+        $email = Session::get('otp_user_email');
+        $data = Session::get('user_register_data');
 
-        if ($user) {
+        if ($email && $data) {
             $otp = rand(1000, 9999);
             Session::put('otp', $otp);
             Session::put('otp_created_at', now());
 
-            Mail::to($user->email)->send(new SendOtpMail($otp));
+            Mail::to($email)->send(new SendOtpMail($otp));
+            Log::info("Resent OTP to $email: $otp");
 
-
-            Log::info("Resent OTP to {$user->email}: $otp");
-
-            return back()->with('message', 'OTP resent successfully to your email.');
+            return back()->with('message', 'OTP resent to your email.');
         }
 
-        return redirect()->route('register')->withErrors('User not found.');
+        return redirect()->route('register')->withErrors(['message' => 'Session expired. Please register again.']);
     }
+
 }

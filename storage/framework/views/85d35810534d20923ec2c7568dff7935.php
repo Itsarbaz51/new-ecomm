@@ -8,42 +8,38 @@
 <?php $attributes = $attributes->except(\App\View\Components\AppLayout::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['title' => 'My-account']); ?>
-    <style>
-        .unerline-link {
-            color: #2275FC;
-        }
-
-        .unerline-link:hover {
-            color: red;
-        }
-    </style>
-    <main class="pt-90">
-        <div class="mb-4 pb-4"></div>
-        <section class="my-account container">
-            <h2 class="page-title">My Account</h2>
-            <div class="row">
-                <div class="col-lg-3">
+    <main class="pt-16 pb-10 bg-gray-50 ">
+        <section class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">My Account</h2>
+            <div class="flex flex-col lg:flex-row gap-6">
+                
+                <div class="w-full lg:w-1/4">
                     <?php echo $__env->make('user.account-nav', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
                 </div>
-                <div class="col-lg-9">
-                    <div class="page-content my-account__dashboard">
-                        <p>Hello, <strong><?php echo e($user->name); ?></strong></p>
-                        <p>Email : <strong><?php echo e($user->email); ?></strong></p>
-                        <p>Phone : <strong><?php echo e($user->mobile); ?></strong></p>
-                        <p>Account dated : <strong><?php echo e($user->created_at->format('d M, Y')); ?></strong></p>
-                        <p>Updated : <strong><?php echo e($user->updated_at->format('d M, Y')); ?></strong></p>
 
-                        <p>From your account dashboard you can view your <a class="unerline-link"
-                                href="<?php echo e(route('user.orders')); ?>">recent
-                                orders</a>, manage your <a class="unerline-link"
-                                href="<?php echo e(optional($address)->id ? route('user.address.edit', ['id' => $address->id]) : ''); ?>"
->shipping
-                                addresses</a>, and
-                            <a class="unerline-link"
-                                href="<?php echo e(route('user.account.details.edit', ['id' => Auth::user()->id])); ?>">edit your
-                                password
-                                and account
-                                details.</a>
+                
+                <div class="w-full lg:w-3/4 bg-white p-6 rounded-lg shadow-md">
+                    <div class="space-y-4 text-sm text-gray-700 leading-6">
+                        <p>Name: <strong class="text-gray-900"><?php echo e($user->name); ?></strong></p>
+                        <p>Email: <strong class="text-gray-900"><?php echo e($user->email); ?></strong></p>
+                        <p>Phone: <strong class="text-gray-900"><?php echo e($user->mobile); ?></strong></p>
+                        <p>Account Created: <strong class="text-gray-900"><?php echo e($user->created_at->format('d M, Y')); ?></strong></p>
+                        <p>Last Updated: <strong class="text-gray-900"><?php echo e($user->updated_at->format('d M, Y')); ?></strong></p>
+
+                        <hr class="my-4 border-gray-200">
+
+                        <p class="text-sm text-gray-600">
+                            From your account dashboard you can view your
+                            <a href="<?php echo e(route('user.orders')); ?>" class="underline text-blue-600 hover:text-red-500 transition">
+                                recent orders</a>,
+                            manage your
+                            <a href="<?php echo e(optional($address)->id ? route('user.address.edit', ['id' => $address->id]) : ''); ?>"
+                                class="underline text-blue-600 hover:text-red-500 transition">
+                                shipping addresses</a>,
+                            and
+                            <a href="<?php echo e(route('user.account.details.edit', ['id' => Auth::user()->id])); ?>"
+                                class="underline text-blue-600 hover:text-red-500 transition">
+                                edit your password and account details</a>.
                         </p>
                     </div>
                 </div>

@@ -112,7 +112,7 @@
                     <form action="<?php echo e(route('cart.coupon.apply')); ?>" method="POST" class="flex gap-2">
                         <?php echo csrf_field(); ?>
                         <input type="text" name="coupon_code" placeholder="Coupon Code"
-                            class="border px-4 py-2 rounded w-full sm:w-2/3" />
+                            class="border px-4 py-2 rounded w-full sm:w-2/3"  pattern="[A-Za-z0-9%]+" title="Only letters and numbers allowed" />
                         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Apply</button>
                     </form>
                     <?php else: ?>
@@ -139,7 +139,7 @@
             <?php endif; ?>
 
             <!-- Totals -->
-            <div class="mt-10 bg-gray-50 p-6 rounded-xl shadow-md">
+            <div class="mt-10 p-6">
                 <h3 class="text-xl font-semibold mb-4">Cart Totals</h3>
                 <table class="w-full text-sm">
                     <tbody>
@@ -190,7 +190,7 @@
                 </table>
                 <div class="mt-6">
                     <a href="<?php echo e(route('cart.checkout')); ?>"
-                        class="bg-green-600 text-white px-6 py-3 rounded text-center inline-block hover:bg-green-700">Proceed
+                        class="btn-main">Proceed
                         to Checkout</a>
                 </div>
             </div>

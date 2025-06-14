@@ -253,8 +253,20 @@
                 </ul>
             </li> --}}
             <a href="{{ route('home.faqs') }}">FAQs</a>
-            <a href="{{ route('home.about') }}">About Us</a>
-            <a href="{{ route('home.contact') }}">Contact Us</a>
+            <a href="{{ route('home.about') }}">About Us</a><a href="{{ route('home.coupons') }}"
+                class="flex items-center gap-1 text-gray-700 hover:text-black">
+                <!-- Offer SVG Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="#f97316">
+                    <!-- Orange stroke (Tailwind orange-500) -->
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 7a1 1 0 011 1v1l1 1a1 1 0 010 1.414l-9.586 9.586a2 2 0 01-2.828 0L3 16.414a2 2 0 010-2.828L12.586 4A2 2 0 0114 3h2a1 1 0 011 1v3z" />
+                    <circle cx="9" cy="9" r="1" fill="#f97316" /> <!-- Same orange fill -->
+                </svg>
+
+                Offers
+            </a>
+
         </nav>
         <div class="actions absolute top-10 sm:right-20 lg:right-62 lg:top-6 right-15 xl:right-80 ">
             {{--
@@ -327,6 +339,7 @@
                 </a>
             </div>
             @else
+
             <div class="header-tools__item hover-container">
                 <a href="{{ Auth::user()->utype === 'Admin' ? route('admin.index') : route('user.index') }}"
                     class="header-tools__item"
@@ -351,7 +364,8 @@
                     alt="TRDNT Logo" class="h-12">
             </a>
 
-            {{--  <!-- Menu Toggle Button -->  --}}
+            {{--
+            <!-- Menu Toggle Button --> --}}
             <button id="mobile-menu-toggle" class="text-2xl">
                 <svg id="menu-open-icon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 block" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor">
@@ -364,7 +378,8 @@
             </button>
         </div>
 
-        {{--  <!-- Hidden mobile nav -->  --}}
+        {{--
+        <!-- Hidden mobile nav --> --}}
         <div id="mobile-nav" class="hidden h-screen p-6 space-y-2.5">
             {{-- Place your nav and user/account section here as-is --}}
             <nav class="main-nav flex flex-col space-y-2">
@@ -383,7 +398,7 @@
                 </div>
                 <a href="{{ route('home.faqs') }}" class="bg-red-100 p-2 hover:bg-red-200 rounded">FAQs</a>
                 <a href="{{ route('home.about') }}" class="bg-red-100 p-2 hover:bg-red-200 rounded">About Us</a>
-                <a href="{{ route('home.contact') }}" class="bg-red-100 p-2 hover:bg-red-200 rounded">Contact Us</a>
+                <a href="{{ route('home.coupons') }}" class="bg-red-100 p-2 hover:bg-red-200 rounded">Offers</a>
             </nav>
             <div class="actions flex">
                 <!-- <div><a href="#" class="me-3"><i class="bi bi-search"></i></a><a href="cart.html"><i class="bi bi-cart"></i>0</a></div> -->

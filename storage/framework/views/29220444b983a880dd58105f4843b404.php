@@ -7,31 +7,33 @@
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\App\View\Components\AppLayout::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes([]); ?>
+<?php $component->withAttributes(['title' => 'OTP Verification']); ?>
 
-    <div class="container mt-5">
-        <h3 class="mb-4">OTP Verification</h3>
+    <div class="w-xl p-4 m-auto">
+        <div class="border border-gray-300 p-5 rounded shadow-md my-3">
+            <h3 class="mb-4">OTP Verification</h3>
 
-        <?php if(session('message')): ?>
+            <?php if(session('message')): ?>
             <div class="alert alert-success"><?php echo e(session('message')); ?></div>
-        <?php endif; ?>
+            <?php endif; ?>
 
-        <?php if($errors->any()): ?>
+            <?php if($errors->any()): ?>
             <div class="alert alert-danger"><?php echo e(implode(', ', $errors->all())); ?></div>
-        <?php endif; ?>
+            <?php endif; ?>
 
-        <form method="POST" action="<?php echo e(route('otp.verify.submit')); ?>">
-            <?php echo csrf_field(); ?>
-            <div class="mb-3">
-                <label class="form-label">Enter the OTP sent to your email.</label>
-                <input type="text" name="otp" class="form-control" required maxlength="4">
+            <form method="POST" action="<?php echo e(route('otp.verify.submit')); ?>">
+                <?php echo csrf_field(); ?>
+                <div class="mb-3">
+                    <label class="form-label">Enter the OTP sent to your email.</label>
+                    <input type="text" name="otp" class="form-control" placeholder="OTP" required maxlength="4">
+                </div>
+
+                <button type="submit" class="btn-main w-full">Verify OTP</button>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="<?php echo e(route('otp.resend')); ?>" class="text-black">Did not get OTP? Resend</a>
             </div>
-
-            <button type="submit" class="btn btn-success w-100">Verify OTP</button>
-        </form>
-
-        <div class="text-center mt-3">
-            <a href="<?php echo e(route('otp.resend')); ?>">Didn't get OTP? Resend</a>
         </div>
     </div>
  <?php echo $__env->renderComponent(); ?>

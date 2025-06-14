@@ -240,8 +240,29 @@ a {
     display: inline-block;
 }
 
+.btn-go-to-cart {
+    background: #202020;
+    color: #fff;
+    padding: 0.65em 1.6em;
+    border-radius: 7px;
+    font-weight: bold;
+    border: none;
+    font-size: 1.12em;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0.7em 0 0 0;
+    display: inline-block;
+}
+
 .btn-main:hover {
     background: #b50018;
+    color: white;
+
+}
+
+.btn-go-to-cart:hover {
+    background: #000000;
+    color: white;
 }
 
 .products-tabs {

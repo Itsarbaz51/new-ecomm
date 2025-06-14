@@ -127,7 +127,8 @@ unset($__errorArgs, $__bag); ?>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="my-3">
-                                                        <label class="form-label" for="address">House no, Building Name *</label>
+                                                        <label class="form-label" for="address">House no, Building Name
+                                                            *</label>
                                                         <input type="text" class="form-control" name="address"
                                                             value="<?php echo e($address->address); ?>" />
                                                     </div>
@@ -144,7 +145,8 @@ unset($__errorArgs, $__bag); ?>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="my-3">
-                                                        <label class="form-label" for="locality">Road Name, Area, Colony *</label>
+                                                        <label class="form-label" for="locality">Road Name, Area, Colony
+                                                            *</label>
                                                         <input type="text" class="form-control" name="locality"
                                                             value="<?php echo e($address->locality); ?>" />
                                                     </div>

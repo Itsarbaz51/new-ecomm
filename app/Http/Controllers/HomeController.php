@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Contact;
+use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\Slide;
@@ -94,6 +95,13 @@ class HomeController extends Controller
     {
         return view('home.faqs');
     }
+
+    public function coupons()
+    {
+        $coupons = Coupon::orderBy('expiry_date', 'asc')->get();
+        return view('home.coupons', compact('coupons'));
+    }
+
 
     public function store_contact(Request $request)
     {

@@ -2,7 +2,7 @@
     <section class="pt-90 flex items-center justify-center">
         <div class="w-xl p-4 mx-auto">
             <div class="flex flex-col justify-center items-center mb-4">
-                <h3 class="font-bold">Logn</h3>
+                <h3 class="font-bold">Login</h3>
                 <p>Please fill in the fields below</p>
             </div>
 

@@ -25,7 +25,7 @@
                     <div class="mb-3">
                         <label class="form-label">Name</label>
                         <input name="name" placeholder="Name" type="text" class="form-control" required
-                            value="<?php echo e(old('name')); ?>">
+                            value="<?php echo e(old('name')); ?>" pattern="[A-Za-z]+" >
                     </div>
 
                     <div class="mb-3">

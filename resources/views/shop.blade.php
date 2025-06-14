@@ -162,7 +162,7 @@
                                 <div class="product-action transition">
                                     @if (Cart::instance('cart')->content()->where('id', $product->id)->count() >
                                     0)
-                                    <a href="{{ route('cart.index') }}" class="btn btn-primary">Go to
+                                    <a href="{{ route('cart.index') }}" class="btn-main">Go to
                                         Cart</a>
                                     @else
                                     <form method="POST" action="{{ route('cart.add') }}">
