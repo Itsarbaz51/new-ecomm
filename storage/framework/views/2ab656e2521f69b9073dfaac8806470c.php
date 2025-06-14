@@ -266,8 +266,8 @@
         <div id="mobile-nav" class="hidden h-screen p-6 space-y-2.5">
             
             <nav class="main-nav flex flex-col space-y-2">
-                <a href="<?php echo e(route('home.index')); ?>">Home</a>
-                <div class="dropdown">
+                <a href="<?php echo e(route('home.index')); ?>" class="bg-red-100 p-2 hover:bg-red-200 rounded">Home</a>
+                <div class="dropdown bg-red-100 p-2 hover:bg-red-200 rounded">
                     <a href="<?php echo e(route('shop.index')); ?>">Shop ▾</a>
                     <ul class="dropdown-menu pl-4">
                         <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -280,9 +280,9 @@
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
-                <a href="<?php echo e(route('home.faqs')); ?>">FAQs</a>
-                <a href="<?php echo e(route('home.about')); ?>">About Us</a>
-                <a href="<?php echo e(route('home.contact')); ?>">Contact Us</a>
+                <a href="<?php echo e(route('home.faqs')); ?>" class="bg-red-100 p-2 hover:bg-red-200 rounded">FAQs</a>
+                <a href="<?php echo e(route('home.about')); ?>" class="bg-red-100 p-2 hover:bg-red-200 rounded">About Us</a>
+                <a href="<?php echo e(route('home.contact')); ?>" class="bg-red-100 p-2 hover:bg-red-200 rounded">Contact Us</a>
             </nav>
             <div class="actions flex">
                 <!-- <div><a href="#" class="me-3"><i class="bi bi-search"></i></a><a href="cart.html"><i class="bi bi-cart"></i>0</a></div> -->

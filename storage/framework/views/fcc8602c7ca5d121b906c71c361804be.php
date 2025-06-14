@@ -180,7 +180,7 @@
                                         <input type="hidden" name="quantity" value="1">
                                         <input type="hidden" name="price"
                                             value="<?php echo e($product->sale_price ?: $product->regular_price); ?>">
-                                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                        <button type="submit" class="btn-main">Add to Cart</button>
                                     </form>
                                     <?php endif; ?>
                                 </div>
