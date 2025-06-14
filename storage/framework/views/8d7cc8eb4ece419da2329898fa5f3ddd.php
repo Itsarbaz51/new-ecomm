@@ -12,28 +12,21 @@
         <div class="mb-4 pb-4"></div>
         <section class="shop-checkout container">
             <h2 class="page-title">Shipping and Checkout</h2>
-            <div class="checkout-steps">
-                <a href="<?php echo e(route('cart.index')); ?>" class="checkout-steps__item active">
-                    <span class="checkout-steps__item-number">01</span>
-                    <span class="checkout-steps__item-title">
-                        <span>Shopping Bag</span>
-                        <em>Manage Your Items List</em>
-                    </span>
-                </a>
-                <a href="javascript:void(0)" class="checkout-steps__item active">
-                    <span class="checkout-steps__item-number">02</span>
-                    <span class="checkout-steps__item-title">
-                        <span>Shipping and Checkout</span>
-                        <em>Checkout Your Items List</em>
-                    </span>
-                </a>
-                <a href="javascript:void(0)" class="checkout-steps__item">
-                    <span class="checkout-steps__item-number">03</span>
-                    <span class="checkout-steps__item-title">
-                        <span>Confirmation</span>
-                        <em>Review And Submit Your Order</em>
-                    </span>
-                </a>
+            <div class="flex justify-between items-start mb-10">
+                <div class="w-full flex gap-4 text-sm text-gray-600">
+                    <div class="flex-1 text-center  border-b-2 border-gray-300 pb-2">
+                        <p class="font-semibold text-black">01. Shopping Bag</p>
+                        <p class="text-xs">Manage Your Items List</p>
+                    </div>
+                    <div class="flex-1 text-center border-b-4 border-red-600 pb-2">
+                        <p>02. Shipping and Checkout</p>
+                        <p class="text-xs">Checkout Your Items</p>
+                    </div>
+                    <div class="flex-1 text-center border-b-2 border-gray-300 pb-2">
+                        <p>03. Confirmation</p>
+                        <p class="text-xs">Review and Submit</p>
+                    </div>
+                </div>
             </div>
             <form name="checkout-form" action="<?php echo e(route('cart.place.an.order')); ?>" method="POST">
                 <?php echo csrf_field(); ?>
@@ -47,165 +40,165 @@
                             </div>
                         </div>
                         <?php if($address): ?>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="my-account__address-list">
-                                        <div class="my-account__address-list-item">
-                                            <div class="my-account__address-list__detail">
-                                                <p><?php echo e($address->name); ?></p>
-                                                <p><?php echo e($address->address); ?></p>
-                                                <p><?php echo e($address->landmark); ?></p>
-                                                <p><?php echo e($address->city); ?>, <?php echo e($address->state); ?>, <?php echo e($address->country); ?>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="my-account__address-list">
+                                    <div class="my-account__address-list-item">
+                                        <div class="my-account__address-list__detail">
+                                            <p><?php echo e($address->name); ?></p>
+                                            <p><?php echo e($address->address); ?></p>
+                                            <p><?php echo e($address->landmark); ?></p>
+                                            <p><?php echo e($address->city); ?>, <?php echo e($address->state); ?>, <?php echo e($address->country); ?>
 
-                                                </p>
-                                                <p><?php echo e($address->zip); ?></p>
-                                                <br />
-                                                <p><?php echo e($address->phone); ?></p>
+                                            </p>
+                                            <p><?php echo e($address->zip); ?></p>
+                                            <br />
+                                            <p><?php echo e($address->phone); ?></p>
 
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         <?php else: ?>
-                            <div class="row mt-5">
-                                <div class="col-md-6">
-                                    <div class="my-3">
-                                        <label class="font-semibold" for="name" class="form-label">Full Name *</label>
-                                        <input type="text" class="form-control" name="name" required=""
-                                            value="<?php echo e(old('name')); ?>" placeholder="Full Name" />
-                                        <?php $__errorArgs = ['name'];
+                        <div class="row mt-5">
+                            <div class="col-md-6">
+                                <div class="my-3">
+                                    <label class="font-semibold" for="name" class="form-label">Full Name *</label>
+                                    <input type="text" class="form-control" name="name" required=""
+                                        value="<?php echo e(old('name')); ?>" placeholder="Full Name" />
+                                    <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                                            <span class="text-danger"><?php echo e($message); ?></span>
-                                        <?php unset($message);
+                                    <span class="text-danger"><?php echo e($message); ?></span>
+                                    <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="my-3">
-                                        <label class="font-semibold" for="phone">Phone Number *</label>
-                                        <input placeholder="Phone" type="text" class="form-control" name="phone" required=""
-                                            value="<?php echo e(old('phone')); ?>" placeholder="Phone" />
-                                        <?php $__errorArgs = ['phone'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                            <span class="text-danger"><?php echo e($message); ?></span>
-                                        <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="my-3">
-                                        <label class="font-semibold" for="zip">Pincode *</label>
-                                        <input placeholder="Pincode" type="text" class="form-control" name="zip" required=""
-                                            value="<?php echo e(old('zip')); ?>">
-                                        <?php $__errorArgs = ['zip'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                            <span class="text-danger"><?php echo e($message); ?></span>
-                                        <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mt-3 mb-3">
-                                        <label class="font-semibold" for="state">State *</label>
-                                        <input placeholder="State" type="text" class="form-control" name="state" required=""
-                                            value="<?php echo e(old('state')); ?>">
-                                        <?php $__errorArgs = ['state'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                            <span class="text-danger"><?php echo e($message); ?></span>
-                                        <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="my-3">
-                                        <label class="font-semibold" for="city">Town / City *</label>
-                                        <input placeholder="Town / City" type="text" class="form-control" name="city" required=""
-                                            value="<?php echo e(old('city')); ?>">
-                                        <?php $__errorArgs = ['city'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                            <span class="text-danger"><?php echo e($message); ?></span>
-                                        <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="my-3">
-                                        <label class="font-semibold" for="address">House no, Building Name *</label>
-                                        <input placeholder="House no, Building Name" type="text" class="form-control" name="address" required=""
-                                            value="<?php echo e(old('address')); ?>">
-                                        <?php $__errorArgs = ['locality'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                            <span class="text-danger"><?php echo e($message); ?></span>
-                                        <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="my-3">
-                                        <label class="font-semibold" for="locality">Road Name, Area, Colony *</label>
-                                        <input placeholder="Road Name, Area, Colony" type="text" class="form-control" name="locality" required=""
-                                            value="<?php echo e(old('locality')); ?>">
-                                        <?php $__errorArgs = ['locality'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                            <span class="text-danger"><?php echo e($message); ?></span>
-                                        <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="my-3">
-                                        <label class="font-semibold" for="landmark" class="font-semibold">Landmark *</label>
-                                        <input placeholder="Landmark" type="text" class="form-control" name="landmark" required=""
-                                            value="<?php echo e(old('landmark')); ?>">
-                                        <?php $__errorArgs = ['landmark'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                            <span class="text-danger"><?php echo e($message); ?></span>
-                                        <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                    </div>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="my-3">
+                                    <label class="font-semibold" for="phone">Phone Number *</label>
+                                    <input placeholder="Phone" type="text" class="form-control" name="phone" required=""
+                                        value="<?php echo e(old('phone')); ?>" placeholder="Phone" />
+                                    <?php $__errorArgs = ['phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <span class="text-danger"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="my-3">
+                                    <label class="font-semibold" for="zip">Pincode *</label>
+                                    <input placeholder="Pincode" type="text" class="form-control" name="zip" required=""
+                                        value="<?php echo e(old('zip')); ?>">
+                                    <?php $__errorArgs = ['zip'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <span class="text-danger"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mt-3 mb-3">
+                                    <label class="font-semibold" for="state">State *</label>
+                                    <input placeholder="State" type="text" class="form-control" name="state" required=""
+                                        value="<?php echo e(old('state')); ?>">
+                                    <?php $__errorArgs = ['state'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <span class="text-danger"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="my-3">
+                                    <label class="font-semibold" for="city">Town / City *</label>
+                                    <input placeholder="Town / City" type="text" class="form-control" name="city"
+                                        required="" value="<?php echo e(old('city')); ?>">
+                                    <?php $__errorArgs = ['city'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <span class="text-danger"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="my-3">
+                                    <label class="font-semibold" for="address">House no, Building Name *</label>
+                                    <input placeholder="House no, Building Name" type="text" class="form-control"
+                                        name="address" required="" value="<?php echo e(old('address')); ?>">
+                                    <?php $__errorArgs = ['locality'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <span class="text-danger"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="my-3">
+                                    <label class="font-semibold" for="locality">Road Name, Area, Colony *</label>
+                                    <input placeholder="Road Name, Area, Colony" type="text" class="form-control"
+                                        name="locality" required="" value="<?php echo e(old('locality')); ?>">
+                                    <?php $__errorArgs = ['locality'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <span class="text-danger"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="my-3">
+                                    <label class="font-semibold" for="landmark" class="font-semibold">Landmark *</label>
+                                    <input placeholder="Landmark" type="text" class="form-control" name="landmark"
+                                        required="" value="<?php echo e(old('landmark')); ?>">
+                                    <?php $__errorArgs = ['landmark'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <span class="text-danger"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                        </div>
                         <?php endif; ?>
                     </div>
                     <div class="checkout__totals-wrapper">
@@ -221,73 +214,73 @@ unset($__errorArgs, $__bag); ?>
                                     </thead>
                                     <tbody>
                                         <?php $__currentLoopData = Cart::instance('cart'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <tr>
-                                                <td>
-                                                    <?php echo e($item->name); ?> x <?php echo e($item->qty); ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo e($item->name); ?> x <?php echo e($item->qty); ?>
 
-                                                </td>
-                                                <td align="right">
-                                                    ₹<?php echo e($item->subtotal()); ?>
+                                            </td>
+                                            <td align="right">
+                                                ₹<?php echo e($item->subtotal()); ?>
 
-                                                </td>
-                                            </tr>
+                                            </td>
+                                        </tr>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </tbody>
                                 </table>
                                 <?php if(Session::has('discount')): ?>
-                                    <table class="checkout-totals">
-                                        <tbody>
-                                            <tr>
-                                                <th>Subtotal</th>
-                                                <td class="text-right">₹<?php echo e(Cart::instance('cart')->subtotal()); ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Discount <?php echo e(Session::get('coupon')['code']); ?></th>
-                                                <td class="text-right">₹<?php echo e(Session::get('discount')['discount']); ?>
+                                <table class="checkout-totals">
+                                    <tbody>
+                                        <tr>
+                                            <th>Subtotal</th>
+                                            <td class="text-right">₹<?php echo e(Cart::instance('cart')->subtotal()); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Discount <?php echo e(Session::get('coupon')['code']); ?></th>
+                                            <td class="text-right">₹<?php echo e(Session::get('discount')['discount']); ?>
 
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Subtotal After Discount</th>
-                                                <td class="text-right">₹<?php echo e(Session::get('discount')['subtotal']); ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Subtotal After Discount</th>
+                                            <td class="text-right">₹<?php echo e(Session::get('discount')['subtotal']); ?>
 
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Shipping</th>
-                                                <td class="text-right">Free</td>
-                                            </tr>
-                                            <tr>
-                                                <th>VAT</th>
-                                                <td class="text-right">₹<?php echo e(Session::get('discount')['tax']); ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Total</th>
-                                                <td class="text-right">₹<?php echo e(Session::get('discount')['total']); ?></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Shipping</th>
+                                            <td class="text-right">Free</td>
+                                        </tr>
+                                        <tr>
+                                            <th>VAT</th>
+                                            <td class="text-right">₹<?php echo e(Session::get('discount')['tax']); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total</th>
+                                            <td class="text-right">₹<?php echo e(Session::get('discount')['total']); ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 <?php else: ?>
-                                    <table class="checkout-totals">
-                                        <tbody>
-                                            <tr>
-                                                <th>SUBTOTAL</th>
-                                                <td class="text-right">₹<?php echo e(Cart::instance('cart')->subtotal()); ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th>SHIPPING</th>
-                                                <td class="text-right">Free shipping</td>
-                                            </tr>
-                                            <tr>
-                                                <th>VAT</th>
-                                                <td class="text-right">₹<?php echo e(Cart::instance('cart')->tax()); ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th>TOTAL</th>
-                                                <td class="text-right">₹<?php echo e(Cart::instance('cart')->total()); ?></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <table class="checkout-totals">
+                                    <tbody>
+                                        <tr>
+                                            <th>SUBTOTAL</th>
+                                            <td class="text-right">₹<?php echo e(Cart::instance('cart')->subtotal()); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>SHIPPING</th>
+                                            <td class="text-right">Free shipping</td>
+                                        </tr>
+                                        <tr>
+                                            <th>VAT</th>
+                                            <td class="text-right">₹<?php echo e(Cart::instance('cart')->tax()); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>TOTAL</th>
+                                            <td class="text-right">₹<?php echo e(Cart::instance('cart')->total()); ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 <?php endif; ?>
                             </div>
                             <div class="checkout__payment-methods">
@@ -317,7 +310,7 @@ unset($__errorArgs, $__bag); ?>
                                         policy</a>.
                                 </div>
                             </div>
-                            <button class="btn btn-primary btn-checkout">PLACE ORDER</button>
+                            <button class="btn-main btn-checkout">PLACE ORDER</button>
                         </div>
                     </div>
                 </div>
@@ -343,7 +336,8 @@ unset($__errorArgs, $__bag); ?>
         if (razorpayRadio.checked) {
             e.preventDefault();
 
-            const amount = <?php echo e(Cart::instance('cart')->total() * 100); ?>;
+            const amount = <?php echo e(floatval(str_replace(',', '', Cart::instance('cart')->total())) * 100); ?>;
+
 
             // Step 1: Create Razorpay order on backend
             const orderRes = await fetch('/create-razorpay-order', {
