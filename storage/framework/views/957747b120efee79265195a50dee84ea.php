@@ -49,7 +49,7 @@
 
             <a href="<?php echo e(route('home.index', ['categories' => $category->id])); ?>"
                 class="tab <?php echo e($isActive ? 'active' : ''); ?>">
-                <span class="text-[8px] sm:text-xs md:text-sm lg:text-base"><?php echo e(strtoupper($category->name)); ?></span>
+                <span class="text-[15px] sm:text-xs md:text-sm lg:text-base"><?php echo e(strtoupper($category->name)); ?></span>
             </a>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
@@ -68,10 +68,10 @@
             </div>
             <?php else: ?>
             <div class="container my-5">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                <div class="flex gap-4 overflow-x-auto">
                     <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col">
-                        <div class="card h-100 shadow-sm product-card product-hover">
+                        <div class="card h-100 w-72 lg:w-fit shadow-sm product-card product-hover">
                             <div class="position-relative overflow-hidden">
                                 
                                 <div class="swiper-container" data-settings='{"resizeObserver": true}'>
@@ -241,10 +241,14 @@
         <div class="newsletter container">
             <h3>Newsletter</h3>
             <p>Stay informed with the latest updates and exclusive offers by signing up for our newsletter.</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Your email" required>
-                <button type="submit">Subscribe</button>
+            <form action="<?php echo e(route('newsletter.subscribe')); ?>" method="POST" class="newsletter-form">
+                <?php echo csrf_field(); ?>
+                <input type="email" name="email" placeholder="Your email" required>
+                <button type="submit" class="btn-main">Subscribe</button>
             </form>
+            <?php if(session('success')): ?>
+            <div style="color: green;"><?php echo e(session('success')); ?></div>
+            <?php endif; ?>
         </div>
 
         <div class="mb-3 mb-xl-5 pt-1 pb-4"></div>

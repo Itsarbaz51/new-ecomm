@@ -40,7 +40,7 @@
 
             <a href="{{ route('home.index', ['categories' => $category->id]) }}"
                 class="tab {{ $isActive ? 'active' : '' }}">
-                <span class="text-[8px] sm:text-xs md:text-sm lg:text-base">{{ strtoupper($category->name) }}</span>
+                <span class="text-[15px] sm:text-xs md:text-sm lg:text-base">{{ strtoupper($category->name) }}</span>
             </a>
             @endforeach
         </div>
@@ -59,10 +59,10 @@
             </div>
             @else
             <div class="container my-5">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                <div class="flex gap-4 overflow-x-auto">
                     @foreach ($products as $product)
                     <div class="col">
-                        <div class="card h-100 shadow-sm product-card product-hover">
+                        <div class="card h-100 w-72 lg:w-fit shadow-sm product-card product-hover">
                             <div class="position-relative overflow-hidden">
                                 {{-- Swiper for product images --}}
                                 <div class="swiper-container" data-settings='{"resizeObserver": true}'>
@@ -236,10 +236,14 @@
         <div class="newsletter container">
             <h3>Newsletter</h3>
             <p>Stay informed with the latest updates and exclusive offers by signing up for our newsletter.</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Your email" required>
-                <button type="submit">Subscribe</button>
+            <form action="{{ route('newsletter.subscribe') }}" method="POST" class="newsletter-form">
+                @csrf
+                <input type="email" name="email" placeholder="Your email" required>
+                <button type="submit" class="btn-main">Subscribe</button>
             </form>
+            @if(session('success'))
+            <div style="color: green;">{{ session('success') }}</div>
+            @endif
         </div>
 
         <div class="mb-3 mb-xl-5 pt-1 pb-4"></div>

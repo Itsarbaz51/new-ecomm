@@ -85,10 +85,10 @@
             <?php else: ?>
             <div class="container my-5" id="productGrid">
                 <h2 class="mb-5 text-center fw-bold">All Products</h2>
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="products-grid">
+                <div class="flex gap-4 overflow-x-auto" id="products-grid">
                     <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col">
-                        <div class="card h-100 shadow-sm product-card product-hover">
+                        <div class="card h-100 w-72 lg:w-fit shadow-sm product-card product-hover">
                             <div class="position-relative overflow-hidden">
                                 
                                 <div class="swiper-container" data-settings='{"resizeObserver": true}'>

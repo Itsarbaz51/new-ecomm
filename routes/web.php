@@ -12,9 +12,6 @@ use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\VerificationController;
-
 
 Auth::routes();
 
@@ -29,11 +26,9 @@ Route::get('otp/resend', [OtpController::class, 'resendOtp'])->name('otp.resend'
 Route::get('password/forgot', [ForgotPasswordController::class, 'showForgotForm'])->name('password.request');
 Route::post('password/forgot', [ForgotPasswordController::class, 'sendOtp'])->name('password.email');
 
-// OTP Verification
 Route::get('password/verify-otp', [ForgotPasswordController::class, 'showOtpForm'])->name('password.otp.verify');
 Route::post('password/verify-otp', [ForgotPasswordController::class, 'verifyOtp'])->name('password.otp.verify.submit');
 
-// Reset Password// Custom Reset Password (no token required)
 Route::get('password/reset', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset.custom');
 Route::post('password/reset', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
 
@@ -72,17 +67,16 @@ Route::controller(CartController::class)->group(function () {
     Route::post('/place-an-order', 'place_an_order')->name('cart.place.an.order');
     Route::get('/order_confirmation', 'order_confirmation')->name('cart.order.confirmation');
 });
-// In web.php
 Route::post('/create-razorpay-order', [CartController::class, 'createRazorpayOrder']);
 
 
-Route::controller(WishlistController::class)->group(function () {
-    Route::post('/wishlist/add', 'add_to_wishlist')->name('wishlist.add');
-    Route::get('/wishlist', 'index')->name('wishlist.index');
-    Route::delete('/wishlist/item/remove/{rowId}', 'remove_item')->name('wishlist.item.remove');
-    Route::delete('/wishlist/clear', 'empty_wishlist')->name('wishlist.items.clear');
-    Route::post('/wishlist/move-to-cart/{rowId}', 'move_to_cart')->name('wishlist.move.to.cart');
-});
+// Route::controller(WishlistController::class)->group(function () {
+//     Route::post('/wishlist/add', 'add_to_wishlist')->name('wishlist.add');
+//     Route::get('/wishlist', 'index')->name('wishlist.index');
+//     Route::delete('/wishlist/item/remove/{rowId}', 'remove_item')->name('wishlist.item.remove');
+//     Route::delete('/wishlist/clear', 'empty_wishlist')->name('wishlist.items.clear');
+//     Route::post('/wishlist/move-to-cart/{rowId}', 'move_to_cart')->name('wishlist.move.to.cart');
+// });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/account-dashboard', [UserController::class, 'index'])->name('user.index');
@@ -104,10 +98,12 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    Route::get('/account-wishlists', [UserController::class, 'account_wishlists'])->name('user.account.wishlists');
+    // Route::get('/account-wishlists', [UserController::class, 'account_wishlists'])->name('user.account.wishlists');
+
 
 
 });
+Route::post('/newsletter/subscribe', [UserController::class, 'subscribe'])->name('newsletter.subscribe');
 
 Route::middleware(['auth', AuthAdmin::class])->group(function () {
     Route::controller(AdminController::class)->group(function () {
@@ -145,10 +141,10 @@ Route::middleware(['auth', AuthAdmin::class])->group(function () {
         Route::put('/admin/order/update-status', 'update_order_status')->name('admin.order.status.update');
 
 
-        Route::get('/order-tracking', 'trackingPage')->name('order.tracking');
+        // Route::get('/order-tracking', 'trackingPage')->name('order.tracking');
 
         // Handle the tracking request
-        Route::get('/track', 'track')->name('track');
+        // Route::get('/track', 'track')->name('track');
 
 
         Route::get('/admin/slides', 'slides')->name('admin.slides');
@@ -170,14 +166,13 @@ Route::middleware(['auth', AuthAdmin::class])->group(function () {
 
 
         Route::get('/admin/profile', 'profile')->name('admin.profile');
-        Route::get('/admin/inbox', 'inboxs')->name('admin.inbox');
+        // Route::get('/admin/inbox', 'inboxs')->name('admin.inbox');
 
         Route::get('/users-reviews', 'users_reviews')->name('admin.uses-reviews');
         Route::delete('/users-reviews/{id}/delete', 'delete_reviews')->name('admin.uses-reviews.delete');
 
         Route::get('/admin/orders/count', function () {
             return response()->json([
-                // Only count new orders from today:
                 'count' => Order::whereDate('created_at', today())->count()
             ]);
         })->name('admin.orders.count');

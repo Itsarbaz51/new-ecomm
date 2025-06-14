@@ -72,11 +72,7 @@
                     <div class="text">Orders</div>
                 </a>
             </li>
-            <li class="sub-menu-item">
-                <a  href="<?php echo e(route('order.tracking')); ?>"  class="">
-                    <div class="text">Order tracking</div>
-                </a>
-            </li>
+            
         </ul>
     </li>
     <li class="menu-item">
@@ -91,12 +87,7 @@
             <div class="text">Coupns</div>
         </a>
     </li>
-    <li class="menu-item">
-        <a href="<?php echo e(route('admin.contacts')); ?>" class="">
-            <div class="icon"><i class="icon-mail"></i></div>
-            <div class="text">Messages</div>
-        </a>
-    </li>
+    
 
     <li class="menu-item">
         <a href="<?php echo e(route('admin.users')); ?>" class="">

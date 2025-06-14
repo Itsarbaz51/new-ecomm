@@ -134,9 +134,7 @@ unset($__defined_vars); ?>
 
                             </div>
                             <div class="header-grid">
-                                <div class="popup-wrap message type-header">
-                                    <?php echo $__env->make('admin.admin-notification', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
-                                </div>
+                                
                                 <div class="popup-wrap user type-header">
                                     <?php echo $__env->make('admin.admin-profile', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
                                 </div>

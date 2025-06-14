@@ -18,10 +18,16 @@
         <div class="footer-column">
             <h5>Be in the Know</h5>
             <p>Sign up to our newsletter to receive exclusive offers.</p>
-            <form class="footer-newsletter" style="display: flex; width: 100%; justify-items: center; gap: 10px;">
-                <input type="email" placeholder="Your email" required>
+            <form action="<?php echo e(route('newsletter.subscribe')); ?>" method="POST" class="footer-newsletter"
+                style="display: flex; width: 100%; justify-items: center; gap: 10px;">
+                <?php echo csrf_field(); ?>
+                <input type="email" name="email" placeholder="Your email" required>
                 <button type="submit" style="height: fit-content; margin: auto 0;">Subscribe</button>
             </form>
+            <?php if(session('success')): ?>
+            <div style="color: green;"><?php echo e(session('success')); ?></div>
+            <?php endif; ?>
+
         </div>
     </div>
     <div
@@ -154,12 +160,13 @@
 </footer>
 
 
-<footer class="footer-mobile container w-100 px-5 d-md-none bg-body text-red-500">
+<footer class="footer-mobile container w-100 px-5 d-md-none bg-body">
     <div class="flex justify-between py-1.5">
-        <div class="col-4">
+        
+        <div>
             <a href="<?php echo e(route('home.index')); ?>"
-                class="bg-red-100 p-1 px-0.5 hover:bg-red-200 rounded flex flex-col justify-center items-center text-black border-none font-bold">
-                <svg class="d-block" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                class="p-1 px-1 rounded flex flex-col justify-center items-center text-red-500 font-bold hover:bg-red-100">
+                <svg class="d-block" width="18" height="18" viewBox="0 0 18 18" stroke="currentColor" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <use href="#icon_home" />
                 </svg>
@@ -167,17 +174,17 @@
             </a>
         </div>
 
-        <div class="col-4">
-            <a href="<?php echo e(route('shop.index')); ?>" class="bg-red-100 p-1 px-0.5 hover:bg-red-200 rounded flex flex-col justify-center items-center text-black border-none font-bold">
-                <svg class="d-block" width="18" height="18" viewBox="0 0 18 18" fill="none"
+        
+        <div>
+            <a href="<?php echo e(route('shop.index')); ?>"
+                class="p-1 px-1 rounded flex flex-col justify-center items-center text-red-500 font-bold hover:bg-red-100">
+                <svg class="d-block" width="18" height="18" viewBox="0 0 18 18" stroke="currentColor" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <use href="#icon_hanger" />
                 </svg>
                 <span>Shop</span>
             </a>
         </div>
-
-        
     </div>
 </footer>
 <?php /**PATH C:\Users\hp\Desktop\ECOMSELLER\resources\views/layouts/headerFooter/footer.blade.php ENDPATH**/ ?>

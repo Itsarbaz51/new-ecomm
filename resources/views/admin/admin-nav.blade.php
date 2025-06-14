@@ -72,11 +72,11 @@
                     <div class="text">Orders</div>
                 </a>
             </li>
-            <li class="sub-menu-item">
+            {{--  <li class="sub-menu-item">
                 <a  href="{{ route('order.tracking') }}"  class="">
                     <div class="text">Order tracking</div>
                 </a>
-            </li>
+            </li>  --}}
         </ul>
     </li>
     <li class="menu-item">
@@ -91,12 +91,12 @@
             <div class="text">Coupns</div>
         </a>
     </li>
-    <li class="menu-item">
+    {{--  <li class="menu-item">
         <a href="{{ route('admin.contacts') }}" class="">
             <div class="icon"><i class="icon-mail"></i></div>
             <div class="text">Messages</div>
         </a>
-    </li>
+    </li>  --}}
 
     <li class="menu-item">
         <a href="{{ route('admin.users') }}" class="">

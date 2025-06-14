@@ -229,5 +229,20 @@ class UserController extends Controller
         return view('user.account-wishlist', compact('wishlistItems', 'products'));
     }
 
+    public function subscribe(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $userEmail = $request->email;
+        Mail::raw("New newsletter subscriber: $userEmail", function ($message) use ($userEmail) {
+            $message->to('arbazkhan86787@gmail.com')
+                ->subject('New Newsletter Subscription');
+        });
+
+        return back()->with('success', 'Thank you for subscribing!');
+    }
+
 
 }

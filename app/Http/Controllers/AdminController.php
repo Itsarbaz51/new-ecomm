@@ -27,44 +27,68 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $orders = Order::orderBy('created_at', 'DESC')->get()->take(10);
-        $dashboardDatas = DB::select("Select sum(total) As TotalAmount,
-        sum(if(status='ordered',total,0)) As TotalOrderedAmount,
-        sum(if(status='delivered',total,0)) As TotalDeliveredAmount,
-        sum(if(status='cancelled',total,0)) As TotalCancelledAmount,
-        Count(*) As Total,
-        sum(if(status='ordered',1,0)) As TotalOrdered,
-        sum(if(status='delivered',1,0)) As TotalDelivered,
-        sum(if(status='cancelled',1,0)) As TotalCancelled
+        // Recent 10 Orders
+        $orders = Order::latest()->take(10)->get();
 
-        From Orders
-        ");
-        $monthlyDatas = DB::select("SELECT M.id As MonthNo, M.name As MonthName,
-                            IFNULL(D.TotalAmount, 0) As TotalAmount,
-                            IFNULL(D.TotalOrderedAmount, 0) As TotalOrderedAmount,
-                            IFNULL(D.TotalDeliveredAmount, 0) As TotalDeliveredAmount,
-                            IFNULL(D.TotalCancelledAmount, 0) As TotalCancelledAmount FROM month_names M
-                            LEFT JOIN (SELECT DATE_FORMAT(created_at, '%b') As MonthName,
-                            MONTH(created_at) As MonthNo,
-                            SUM(total) As TotalAmount,
-                            SUM(if(status = 'ordered', total, 0)) As TotalOrderedAmount,
-                            SUM(if(status = 'delivered', total, 0)) As TotalDeliveredAmount,
-                            SUM(if(status = 'cancelled', total, 0)) As TotalCancelledAmount
-                            FROM Orders WHERE YEAR(created_at) = YEAR(NOW()) GROUP BY YEAR(created_at), MONTH(created_at), DATE_FORMAT(created_at, '%b') Order By MONTH(created_at)) D On  D.MonthNo = M.id");
+        // Dashboard Summary
+        $dashboardDatas = DB::select("SELECT
+            SUM(total) AS TotalAmount,
+            SUM(CASE WHEN status = 'ordered' THEN total ELSE 0 END) AS TotalOrderedAmount,
+            SUM(CASE WHEN status = 'delivered' THEN total ELSE 0 END) AS TotalDeliveredAmount,
+            SUM(CASE WHEN status = 'cancelled' THEN total ELSE 0 END) AS TotalCancelledAmount,
+            COUNT(*) AS Total,
+            SUM(CASE WHEN status = 'ordered' THEN 1 ELSE 0 END) AS TotalOrdered,
+            SUM(CASE WHEN status = 'delivered' THEN 1 ELSE 0 END) AS TotalDelivered,
+            SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) AS TotalCancelled
+        FROM orders
+    ");
 
-        $AmountM = implode(',', collect($monthlyDatas)->pluck('TotalAmount')->toArray());
-        $OrderedAmountM = implode(',', collect($monthlyDatas)->pluck('TotalOrderedAmount')->toArray());
-        $DeliveredAmountM = implode(',', collect($monthlyDatas)->pluck('TotalDeliveredAmount')->toArray());
-        $CancelledAmountM = implode(',', collect($monthlyDatas)->pluck('TotalCancelledAmount')->toArray());
+        // Monthly Revenue Chart Data
+        $monthlyData = Order::selectRaw("MONTH(created_at) as month,
+            SUM(total) as TotalAmount,
+            SUM(CASE WHEN status = 'ordered' THEN total ELSE 0 END) AS TotalOrderedAmount,
+            SUM(CASE WHEN status = 'delivered' THEN total ELSE 0 END) AS TotalDeliveredAmount,
+            SUM(CASE WHEN status = 'cancelled' THEN total ELSE 0 END) AS TotalCancelledAmount
+        ")
+            ->whereYear('created_at', now()->year)
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->orderBy(DB::raw('MONTH(created_at)'))
+            ->get()
+            ->keyBy('month');
 
-        $TotalAmount = collect($monthlyDatas)->sum('TotalAmount');
-        $TotalOrderedAmount = collect($monthlyDatas)->sum('TotalOrderedAmount');
-        $TotalDeliveredAmount = collect($monthlyDatas)->sum('TotalDeliveredAmount');
-        $TotalCancelledAmount = collect($monthlyDatas)->sum('TotalCancelledAmount');
+        // Generate full 12 months even if empty
+        $AmountM = [];
+        $OrderedAmountM = [];
+        $DeliveredAmountM = [];
+        $CancelledAmountM = [];
 
+        for ($i = 1; $i <= 12; $i++) {
+            $AmountM[] = $monthlyData[$i]->TotalAmount ?? 0;
+            $OrderedAmountM[] = $monthlyData[$i]->TotalOrderedAmount ?? 0;
+            $DeliveredAmountM[] = $monthlyData[$i]->TotalDeliveredAmount ?? 0;
+            $CancelledAmountM[] = $monthlyData[$i]->TotalCancelledAmount ?? 0;
+        }
 
-        return view('admin.index', compact('orders', 'dashboardDatas', 'AmountM', 'OrderedAmountM', 'DeliveredAmountM', 'CancelledAmountM', 'TotalAmount', 'TotalOrderedAmount', 'TotalDeliveredAmount', 'TotalCancelledAmount'));
+        // Totals
+        $TotalAmount = array_sum($AmountM);
+        $TotalOrderedAmount = array_sum($OrderedAmountM);
+        $TotalDeliveredAmount = array_sum($DeliveredAmountM);
+        $TotalCancelledAmount = array_sum($CancelledAmountM);
+
+        return view('admin.index', [
+            'orders' => $orders,
+            'dashboardDatas' => $dashboardDatas,
+            'AmountM' => implode(',', $AmountM),
+            'OrderedAmountM' => implode(',', $OrderedAmountM),
+            'DeliveredAmountM' => implode(',', $DeliveredAmountM),
+            'CancelledAmountM' => implode(',', $CancelledAmountM),
+            'TotalAmount' => $TotalAmount,
+            'TotalOrderedAmount' => $TotalOrderedAmount,
+            'TotalDeliveredAmount' => $TotalDeliveredAmount,
+            'TotalCancelledAmount' => $TotalCancelledAmount,
+        ]);
     }
+
 
 
     // brands
@@ -590,22 +614,22 @@ class AdminController extends Controller
     }
 
     // Show the order tracking page
-    public function trackingPage()
-    {
-        return view('admin.order-tracking');
-    }
+    // public function trackingPage()
+    // {
+    //     return view('admin.order-tracking');
+    // }
 
     // Process the tracking request
-    public function track(Request $request)
-    {
-        $order = Order::where('id', $request->order_id)->first();
+    // public function track(Request $request)
+    // {
+    //     $order = Order::where('id', $request->order_id)->first();
 
-        if (!$order) {
-            return redirect()->back()->with('error', 'Order not found');
-        }
+    //     if (!$order) {
+    //         return redirect()->back()->with('error', 'Order not found');
+    //     }
 
-        return redirect()->route('order.tracking')->with('order', $order);
-    }
+    //     return redirect()->route('order.tracking')->with('order', $order);
+    // }
 
 
     public function slides()
@@ -813,17 +837,17 @@ class AdminController extends Controller
         return view('admin.admin-profile', compact('admin'));
     }
 
-    public function inboxs()
-    {
-        $orders = Order::whereIn('status', ['Ordered', 'Delivered', 'Cancelled'])
-            ->with('user')
-            ->withCount('orderitems')
-            ->latest()
-            ->get();
+    // public function inboxs()
+    // {
+    //     $orders = Order::whereIn('status', ['Ordered', 'Delivered', 'Cancelled'])
+    //         ->with('user')
+    //         ->withCount('orderitems')
+    //         ->latest()
+    //         ->get();
 
-        $orderByStatus = Order::groupBy('status');
-        return view('admin.inbox', compact('orders', 'orderByStatus'));
-    }
+    //     $orderByStatus = Order::groupBy('status');
+    //     return view('admin.inbox', compact('orders', 'orderByStatus'));
+    // }
 
     public function users_reviews()
     {

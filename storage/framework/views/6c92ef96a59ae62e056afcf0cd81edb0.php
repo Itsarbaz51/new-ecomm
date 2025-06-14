@@ -34,18 +34,7 @@
                 <div class="body-title-2">Account</div>
             </a>
         </li>
-        <li>
-            <a href="<?php echo e(route('admin.inbox')); ?>" class="user-item">
-                <div class="icon">
-                    <i class="icon-mail"></i>
-                </div>
-                <div class="body-title-2">Inbox</div>
-                <div class="number">
-                    <?php echo e(\App\Models\Order::where('status', 'Ordered')->count() ? \App\Models\Order::where('status', 'Ordered')->count() : 0); ?>
-
-                </div>
-            </a>
-        </li>
+        
         
         
         <li>

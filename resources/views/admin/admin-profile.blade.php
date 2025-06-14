@@ -34,7 +34,7 @@
                 <div class="body-title-2">Account</div>
             </a>
         </li>
-        <li>
+        {{--  <li>
             <a href="{{ route('admin.inbox') }}" class="user-item">
                 <div class="icon">
                     <i class="icon-mail"></i>
@@ -44,7 +44,7 @@
                     {{ \App\Models\Order::where('status', 'Ordered')->count() ? \App\Models\Order::where('status', 'Ordered')->count() : 0 }}
                 </div>
             </a>
-        </li>
+        </li>  --}}
         {{-- <li>
             <a href="#" class="user-item">
                 <div class="icon">
