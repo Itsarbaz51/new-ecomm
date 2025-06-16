@@ -27,6 +27,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+     public function products(){
+        
+     }
+
+
     public function index(Request $request)
     {
 

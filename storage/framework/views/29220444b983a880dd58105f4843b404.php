@@ -10,7 +10,7 @@
 <?php $component->withAttributes(['title' => 'OTP Verification']); ?>
 
     <div class="w-xl p-4 m-auto">
-        <div class="border border-gray-300 p-5 rounded shadow-md my-3">
+        <div class="border border-gray-300 p-5 rounded shadow-md my-4">
             <h3 class="mb-4">OTP Verification</h3>
 
             <?php if(session('message')): ?>

@@ -106,9 +106,9 @@
 
                             </div>
                             <div class="header-grid">
-                                {{--  <div class="popup-wrap message type-header">
+                                {{-- <div class="popup-wrap message type-header">
                                     @include('admin.admin-notification')
-                                </div>  --}}
+                                </div> --}}
                                 <div class="popup-wrap user type-header">
                                     @include('admin.admin-profile')
                                 </div>

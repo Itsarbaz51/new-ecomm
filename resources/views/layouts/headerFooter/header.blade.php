@@ -223,6 +223,29 @@
 </svg>
 <div class="top-bar">CURRENTLY INDIA ONLY! <br>WORLDWIDE SHIPPING COMING SOON</div>
 <header class="main-header">
+    <style>
+        #box-content-search {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between
+        }
+
+        #box-content-search li {
+            display: flex;
+            margin: 0.5px;
+        }
+
+        #box-content-search a {
+            color: black;
+        }
+
+        #box-content-search img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+    </style>
     <div class="container nav-container relative">
         <a href="{{ route('home.index') }}" class="h-14 hidden lg:block"><img
                 src="https://trdnt.co.uk/cdn/shop/files/trident_logo_without_font_exported.png?v=1694198914&width=200"
@@ -295,28 +318,44 @@
                     </a>
                 </div>
 
-                <div class="w-screen absolute -left-[11rem] sm:-left-[37rem] lg:-left-[40rem] xl:-left-[59rem] top-8">
-                    <div class="search-popup js-hidden-content">
-                        <form action="#" method="GET" class="search-field container">
-                            <p class="text-uppercase text-secondary fw-medium mb-4">What are you looking for?</p>
-                            <div class="position-relative">
-                                <input class="search-field__input search-popup__input w-100 fw-medium" type="text"
-                                    name="search-keyword" placeholder="Search products" autocomplete="off"
+                {{--
+                <!-- Tailwind CSS Search Popup UI --> --}}
+                <div class="w-screen absolute top-16 -left-72 ">
+                    <div
+                        class="bg-white shadow-xl rounded-lg -my-8 p-6 max-w-md mx-auto search-popup js-hidden-content">
+                        <form action="#" method="GET" class="space-y-4">
+                            <p class="uppercase text-sm text-gray-600 font-semibold">What are you looking for?</p>
+
+                            {{--
+                            <!-- Input + Search Button --> --}}
+                            <div class="relative">
+                                <input
+                                    class="w-full border border-gray-300 rounded-full py-2 px-4 pr-12 text-sm text-gray-800 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    type="text" name="search-keyword" placeholder="Search products" autocomplete="off"
                                     id="search-input" />
-                                <button class="btn-icon search-popup__submit" type="submit">
-                                    <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <use href="#icon_search" />
+                                <button
+                                    class="absolute right-10 top-1/2 -translate-y-1/2 text-gray-500 hover:text-black"
+                                    type="submit">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1011.25 3a7.5 7.5 0 005.4 13.65z" />
                                     </svg>
                                 </button>
-                                <button class="btn-icon btn-close-lg search-popup__reset" type="reset"></button>
+                                <button
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-red-500"
+                                    type="reset">
+                                    ✖
+                                </button>
                             </div>
-                            <div class="search-popup__results">
-                                <ul id="box-content-search"></ul>
-                            </div>
+
+                            <!-- Search Results List -->
+                            <ul id="box-content-search" class="space-y-3 space-x-2.5">
+
+                            </ul>
                         </form>
                     </div>
                 </div>
+
             </div>
 
             <a href="{{ route('cart.index') }}" class="cart-icon">
