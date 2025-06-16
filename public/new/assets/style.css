@@ -7,6 +7,11 @@ body {
     min-height: 100vh;
 }
 
+html,
+body {
+    overflow-x: hidden;
+}
+
 /* Dropdown styles */
 .dropdown {
     position: relative;
@@ -257,7 +262,6 @@ a {
 .btn-main:hover {
     background: #b50018;
     color: white;
-
 }
 
 .btn-go-to-cart:hover {

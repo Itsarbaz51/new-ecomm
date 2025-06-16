@@ -231,7 +231,7 @@
             <a href="{{ route('home.index') }}">Home</a>
             <li class="dropdown style">
                 <a href="{{ route('shop.index') }}">Shop ▾</a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu z-30">
                     @foreach ($categories as $category)
                     <li>
                         <a href="{{ route('shop.index', ['categories' => $category->id]) }}"

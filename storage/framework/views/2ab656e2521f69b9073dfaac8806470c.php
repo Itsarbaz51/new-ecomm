@@ -231,7 +231,7 @@
             <a href="<?php echo e(route('home.index')); ?>">Home</a>
             <li class="dropdown style">
                 <a href="<?php echo e(route('shop.index')); ?>">Shop ▾</a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu z-30">
                     <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li>
                         <a href="<?php echo e(route('shop.index', ['categories' => $category->id])); ?>"

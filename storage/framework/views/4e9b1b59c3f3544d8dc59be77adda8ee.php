@@ -359,7 +359,7 @@
                                     <div class="product-action transition">
                                         <?php if(Cart::instance('cart')->content()->where('id', $product->id)->count() >
                                         0): ?>
-                                        <a href="<?php echo e(route('cart.index')); ?>" class="btn btn-primary">Go to
+                                        <a href="<?php echo e(route('cart.index')); ?>" class="btn-main">Go to
                                             Cart</a>
                                         <?php else: ?>
                                         <form method="POST" action="<?php echo e(route('cart.add')); ?>">
