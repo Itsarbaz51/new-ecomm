@@ -42,8 +42,8 @@ class UserController extends Controller
         $order = Order::where('user_id', Auth::user()->id)->where('id', $order_id)->first();
 
         if ($order) {
-            // dd($order->id);
             $orderItems = OrderItem::where('order_id', $order->id)->orderBy('id')->paginate(12);
+            // dd($orderItems);
             $transaction = Transaction::where('order_id', $order->id)->first();
             return view('user.order-details', compact('order', 'orderItems', 'transaction'));
         } else {
@@ -54,7 +54,7 @@ class UserController extends Controller
     public function cancel_order(Request $request)
     {
         $order = Order::find($request->order_id);
-        $order->status = 'canceled';
+        $order->status = 'cancelled';
         $order->cancelled_date = Carbon::now();
         $order->save();
 
@@ -103,7 +103,7 @@ class UserController extends Controller
             $address->locality = $request->locality;
             $address->landmark = $request->landmark;
             $address->country = 'India';
-            $address->isdefault = $request->has('isdefault') ? 1 : 0;
+            $address->isdefault = 1;
             ;
             $address->save();
         }
@@ -146,7 +146,7 @@ class UserController extends Controller
             $address->locality = $request->locality;
             $address->landmark = $request->landmark;
             $address->country = 'India';
-            $address->isdefault = $request->has('isdefault') ? 1 : 0;
+            $address->isdefault = 1;
             ;
             $address->save();
         }

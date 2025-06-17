@@ -38,17 +38,17 @@
                                                             value="{{ $address->name }}" />
                                                     </div>
                                                     @error('name')
-                                                        <span class="text-danger">{{ $message }}</span>
+                                                    <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="my-3">
                                                         <label class="form-label" for="phone">Phone Number *</label>
-                                                        <input type="text" class="form-control" name="phone"
-                                                            value="{{ $address->phone }}" />
+                                                        <input type="number" class="form-control" name="phone"
+                                                            value="{{ $address->phone }}" maxlength="10" />
                                                     </div>
                                                     @error('phone')
-                                                        <span class="text-danger">{{ $message }}</span>
+                                                    <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                                 <div class="col-md-4">
@@ -58,7 +58,7 @@
                                                             value="{{ $address->zip }}" />
                                                     </div>
                                                     @error('zip')
-                                                        <span class="text-danger">{{ $message }}</span>
+                                                    <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                                 <div class="col-md-4">
@@ -68,7 +68,7 @@
                                                             value="{{ $address->state }}" />
                                                     </div>
                                                     @error('state')
-                                                        <span class="text-danger">{{ $message }}</span>
+                                                    <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                                 <div class="col-md-4">
@@ -78,7 +78,7 @@
                                                             value="{{ $address->city }}" />
                                                     </div>
                                                     @error('city')
-                                                        <span class="text-danger">{{ $message }}</span>
+                                                    <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                                 <div class="col-md-6">
@@ -89,7 +89,7 @@
                                                             value="{{ $address->address }}" />
                                                     </div>
                                                     @error('address')
-                                                        <span class="text-danger">{{ $message }}</span>
+                                                    <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                                 <div class="col-md-6">
@@ -100,7 +100,7 @@
                                                             value="{{ $address->locality }}" />
                                                     </div>
                                                     @error('locality')
-                                                        <span class="text-danger">{{ $message }}</span>
+                                                    <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                                 <div class="col-md-12">
@@ -110,19 +110,19 @@
                                                             value="{{ $address->landmark }}" />
                                                     </div>
                                                     @error('landmark')
-                                                        <span class="text-danger">{{ $message }}</span>
+                                                    <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                                {{--  <div class="col-md-6">
+                                                {{-- <div class="col-md-6">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="1"
-                                                        <label class="form-label" class="form-check-label" for="isdefault">
-                                                            id="isdefault" name="isdefault"
-                                                            {{  $address->isdefault == 1 ? 'checked' : '' }} />
-                                                            Make as Default address
+                                                        <input class="form-check-input" type="checkbox" value="1" <label
+                                                            class="form-label" class="form-check-label" for="isdefault">
+                                                        id="isdefault" name="isdefault"
+                                                        {{ $address->isdefault == 1 ? 'checked' : '' }} />
+                                                        Make as Default address
                                                         </label>
                                                     </div>
-                                                </div>  --}}
+                                                </div> --}}
                                                 <div class="col-md-12 text-right">
                                                     <button type="submit" class="btn-main">Submit</button>
                                                 </div>

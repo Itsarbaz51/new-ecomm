@@ -8,7 +8,7 @@
 <?php $attributes = $attributes->except(\App\View\Components\AppLayout::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['title' => 'Account Address']); ?>
-   <main class="pt-16 pb-10 bg-gray-50">
+    <main class="pt-16 pb-10 bg-gray-50">
         <section class="container mx-auto px-4">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">My Addresses</h2>
             <div class="flex flex-col lg:flex-row gap-6">
@@ -29,6 +29,13 @@
 
                         <p class="text-sm text-gray-600">The following addresses will be used on the checkout page by
                             default.</p>
+                        <?php if($address->isEmpty()): ?> <a href="<?php echo e(route('user.address.add')); ?>"
+                            class="btn btn-danger text-decoration-none">
+                            Add New
+                        </a>
+                        <?php endif; ?>
+
+
 
                         <?php $__empty_1 = true; $__currentLoopData = $address; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $address): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div class="border border-gray-200 rounded-md p-4 mb-4 bg-gray-50">

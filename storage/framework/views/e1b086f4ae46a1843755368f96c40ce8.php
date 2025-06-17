@@ -61,9 +61,7 @@
                                     <tr>
                                         <td><?php echo e($user->id); ?></td>
                                         <td class="pname">
-                                            <div class="image">
-                                                <img src="user-1.html" alt="" class="image">
-                                            </div>
+                                        
                                             <div class="name">
                                                 <a href="#" class="body-title-2"><?php echo e($user->name); ?></a>
                                                 <div class="text-tiny mt-3"><?php echo e($user->utype); ?></div>

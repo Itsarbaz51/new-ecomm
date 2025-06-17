@@ -87,7 +87,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/account-order/cancel-order', [UserController::class, 'cancel_order'])->name('user.order.cancel');
 
     Route::get('/account-address', [UserController::class, 'address'])->name('user.address');
-    // Route::get('/account-address/add', [UserController::class, 'add_address'])->name('user.address.add');
+    Route::get('/account-address/add', [UserController::class, 'add_address'])->name('user.address.add');
     Route::post('/account-address/store', [UserController::class, 'store_address'])->name('user.address.store');
     Route::get('/account-address/edit/{id}', [UserController::class, 'edit_address'])->name('user.address.edit');
     Route::put('/account-address/update', [UserController::class, 'update_address'])->name('user.address.update');

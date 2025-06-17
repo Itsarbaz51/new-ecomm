@@ -130,9 +130,7 @@
                 <input type="email" name="email" placeholder="Your email" required>
                 <button type="submit" class="btn-main">Subscribe</button>
             </form>
-            <?php if(session('success')): ?>
-            <div style="color: green;"><?php echo e(session('success')); ?></div>
-            <?php endif; ?>
+            
         </div>
 
         <div class="mb-3 mb-xl-5 pt-1 pb-4"></div>

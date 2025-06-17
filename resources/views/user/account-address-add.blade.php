@@ -83,7 +83,7 @@
                                                     <div class="my-3">
                                                         <label class="form-label" for="address">House no, Building Name
                                                             *</label>
-                                                        <input type="text" class="form-control" placeholder="City"
+                                                        <input type="text" class="form-control" placeholder="House no, Building Name"
                                                             name="address" value="{{ old('address') }}" />
                                                     </div>
                                                     @error('address')

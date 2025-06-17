@@ -53,10 +53,16 @@
                         <span>₹<?php echo e($order->total); ?></span>
                     </div>
                     <div class="order-info__item">
-                        <label>Paymetn Method</label>
+                        <label>Payment Method</label>
                         
                         <span><?php echo e($order->transactions->mode); ?></span>
                     </div>
+                    <?php if($order->transactions->razorpay_payment_id): ?>
+                    <div class="order-info__item">
+                        <label>Razorpay Payment ID</label>
+                        <span><?php echo e($order->transactions->razorpay_payment_id); ?></span>
+                    </div>
+                    <?php endif; ?>
                 </div>
                 <div class="checkout__totals-wrapper">
                     <div class="checkout__totals">

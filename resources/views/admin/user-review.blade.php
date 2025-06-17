@@ -71,7 +71,7 @@
                                     <td>{{ $item->rating }}</td>
                                     <td>{{ $item->comment }}</td>
                                     <td>{{ $item->product->name }}</td>
-                                    <td>{{ $item->creacted_at }}</td>
+                                    <td>{{ $item->created_at }}</td>
                                     <td>
                                         <form action="{{route('admin.uses-reviews.delete', ['id' => $item->id])}}" method="POST">
                                             @csrf

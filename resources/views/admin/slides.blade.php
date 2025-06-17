@@ -43,9 +43,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Image</th>
-                                <th>Tagline</th>
                                 <th>Title</th>
-                                <th>Subtitle</th>
                                 <th>Link</th>
                                 <th>Action</th>
                             </tr>
@@ -61,9 +59,7 @@
                                                 alt="{{ $slide->title }}" class="image">
                                         </div>
                                     </td>
-                                    <td>{{ $slide->tagline }}</td>
                                     <td class="overflow-auto">{{ $slide->title }}</td>
-                                    <td>{{ $slide->subtitle }}</td>
                                     <td class="overflow-auto">{{ $slide->link }}</td>
                                     <td>
                                         <div class="list-icon-function">

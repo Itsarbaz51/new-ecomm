@@ -32,15 +32,19 @@
                 <?php echo csrf_field(); ?>
                 <div class="checkout-form">
                     <div class="billing-info__wrapper">
-                        <div class="row">
-                            <div class="col-6">
-                                <h4>SHIPPING DETAILS</h4>
-                            </div>
-                            <div class="col-6">
-                            </div>
+                        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
+                            <h4 class="text-lg font-semibold uppercase tracking-wide">Shipping Details</h4>
+
+                            <a href="<?php echo e(route('user.address.edit', ['id' => $address->id])); ?>"
+                                class="inline-block bg-red-600 hover:bg-red-700 text-white text-sm px-4 py-2 rounded shadow transition">
+                                Edit Address
+                            </a>
                         </div>
+
+                        
                         <?php if($address): ?>
                         <div class="row">
+
                             <div class="col-md-12">
                                 <div class="my-account__address-list">
                                     <div class="my-account__address-list-item">

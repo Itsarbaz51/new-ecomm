@@ -52,9 +52,7 @@
                                     <tr>
                                         <td>{{$user->id}}</td>
                                         <td class="pname">
-                                            <div class="image">
-                                                <img src="user-1.html" alt="" class="image">
-                                            </div>
+                                        
                                             <div class="name">
                                                 <a href="#" class="body-title-2">{{$user->name}}</a>
                                                 <div class="text-tiny mt-3">{{$user->utype}}</div>

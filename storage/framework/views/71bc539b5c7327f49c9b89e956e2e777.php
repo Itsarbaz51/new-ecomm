@@ -51,7 +51,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                                                        <span class="text-danger"><?php echo e($message); ?></span>
+                                                    <span class="text-danger"><?php echo e($message); ?></span>
                                                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -60,15 +60,15 @@ unset($__errorArgs, $__bag); ?>
                                                 <div class="col-md-6">
                                                     <div class="my-3">
                                                         <label class="form-label" for="phone">Phone Number *</label>
-                                                        <input type="text" class="form-control" name="phone"
-                                                            value="<?php echo e($address->phone); ?>" />
+                                                        <input type="number" class="form-control" name="phone"
+                                                            value="<?php echo e($address->phone); ?>" maxlength="10" />
                                                     </div>
                                                     <?php $__errorArgs = ['phone'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                                                        <span class="text-danger"><?php echo e($message); ?></span>
+                                                    <span class="text-danger"><?php echo e($message); ?></span>
                                                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -85,7 +85,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                                                        <span class="text-danger"><?php echo e($message); ?></span>
+                                                    <span class="text-danger"><?php echo e($message); ?></span>
                                                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -102,7 +102,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                                                        <span class="text-danger"><?php echo e($message); ?></span>
+                                                    <span class="text-danger"><?php echo e($message); ?></span>
                                                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -119,7 +119,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                                                        <span class="text-danger"><?php echo e($message); ?></span>
+                                                    <span class="text-danger"><?php echo e($message); ?></span>
                                                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -137,7 +137,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                                                        <span class="text-danger"><?php echo e($message); ?></span>
+                                                    <span class="text-danger"><?php echo e($message); ?></span>
                                                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -155,7 +155,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                                                        <span class="text-danger"><?php echo e($message); ?></span>
+                                                    <span class="text-danger"><?php echo e($message); ?></span>
                                                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -172,7 +172,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                                                        <span class="text-danger"><?php echo e($message); ?></span>
+                                                    <span class="text-danger"><?php echo e($message); ?></span>
                                                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -203,5 +203,4 @@ unset($__errorArgs, $__bag); ?>
 <?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
 <?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
 <?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
-<?php endif; ?>
-<?php /**PATH C:\Users\hp\Desktop\ECOMSELLER\resources\views/user/account-address-edit.blade.php ENDPATH**/ ?>
+<?php endif; ?><?php /**PATH C:\Users\hp\Desktop\ECOMSELLER\resources\views/user/account-address-edit.blade.php ENDPATH**/ ?>

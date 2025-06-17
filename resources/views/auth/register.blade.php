@@ -7,7 +7,7 @@
             </div>
 
             @if ($errors->any())
-                <div class="alert alert-danger">{{ implode(', ', $errors->all()) }}</div>
+            <div class="alert alert-danger">{{ implode(', ', $errors->all()) }}</div>
             @endif
 
             <form method="POST" action="{{ route('register') }}">
@@ -16,7 +16,7 @@
                     <div class="mb-3">
                         <label class="form-label">Name</label>
                         <input name="name" placeholder="Name" type="text" class="form-control" required
-                            value="{{ old('name') }}" pattern="[A-Za-z]+" >
+                            value="{{ old('name') }}" pattern="[A-Za-z]+">
                     </div>
 
                     <div class="mb-3">
@@ -27,7 +27,7 @@
 
                     <div class="mb-3">
                         <label class="form-label">Mobile</label>
-                        <input name="mobile" placeholder="Mobile" type="text" class="form-control" required
+                        <input name="mobile" placeholder="Mobile" type="number" class="form-control" required
                             maxlength="10" value="{{ old('mobile') }}">
                     </div>
 

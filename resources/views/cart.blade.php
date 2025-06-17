@@ -1,13 +1,4 @@
 <x-app-layout title="Cart">
-    <style>
-        .success {
-            color: #278c04 !important;
-        }
-
-        .error {
-            color: #ff0000 !important;
-        }
-    </style>
     <main class="pt-20">
         <section class="container mx-auto px-4 py-10">
             <h2 class="text-3xl font-bold mb-6 text-gray-800">Cart</h2>
@@ -120,13 +111,6 @@
                         Cart</button>
                 </form>
             </div>
-
-            <!-- Flash Message -->
-            @if (Session::has('success'))
-            <p class="mt-4 text-green-600">{{ Session::get('success') }}</p>
-            @elseif(Session::has('error'))
-            <p class="mt-4 text-red-600">{{ Session::get('error') }}</p>
-            @endif
 
             <!-- Totals -->
             <div class="mt-10 p-6">

@@ -80,7 +80,7 @@
                                     <td><?php echo e($item->rating); ?></td>
                                     <td><?php echo e($item->comment); ?></td>
                                     <td><?php echo e($item->product->name); ?></td>
-                                    <td><?php echo e($item->creacted_at); ?></td>
+                                    <td><?php echo e($item->created_at); ?></td>
                                     <td>
                                         <form action="<?php echo e(route('admin.uses-reviews.delete', ['id' => $item->id])); ?>" method="POST">
                                             <?php echo csrf_field(); ?>
@@ -134,4 +134,5 @@
             })
         })
     })
-</script><?php /**PATH C:\Users\hp\Desktop\ECOMSELLER\resources\views/admin/user-review.blade.php ENDPATH**/ ?>
+</script>
+<?php /**PATH C:\Users\hp\Desktop\ECOMSELLER\resources\views/admin/user-review.blade.php ENDPATH**/ ?>

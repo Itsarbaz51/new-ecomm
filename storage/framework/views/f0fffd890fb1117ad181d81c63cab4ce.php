@@ -16,7 +16,7 @@
             </div>
 
             <?php if($errors->any()): ?>
-                <div class="alert alert-danger"><?php echo e(implode(', ', $errors->all())); ?></div>
+            <div class="alert alert-danger"><?php echo e(implode(', ', $errors->all())); ?></div>
             <?php endif; ?>
 
             <form method="POST" action="<?php echo e(route('register')); ?>">
@@ -25,7 +25,7 @@
                     <div class="mb-3">
                         <label class="form-label">Name</label>
                         <input name="name" placeholder="Name" type="text" class="form-control" required
-                            value="<?php echo e(old('name')); ?>" pattern="[A-Za-z]+" >
+                            value="<?php echo e(old('name')); ?>" pattern="[A-Za-z]+">
                     </div>
 
                     <div class="mb-3">
@@ -36,7 +36,7 @@
 
                     <div class="mb-3">
                         <label class="form-label">Mobile</label>
-                        <input name="mobile" placeholder="Mobile" type="text" class="form-control" required
+                        <input name="mobile" placeholder="Mobile" type="number" class="form-control" required
                             maxlength="10" value="<?php echo e(old('mobile')); ?>">
                     </div>
 
@@ -68,5 +68,4 @@
 <?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>
 <?php $component = $__componentOriginal9ac128a9029c0e4701924bd2d73d7f54; ?>
 <?php unset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54); ?>
-<?php endif; ?>
-<?php /**PATH C:\Users\hp\Desktop\ECOMSELLER\resources\views/auth/register.blade.php ENDPATH**/ ?>
+<?php endif; ?><?php /**PATH C:\Users\hp\Desktop\ECOMSELLER\resources\views/auth/register.blade.php ENDPATH**/ ?>

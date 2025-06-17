@@ -65,6 +65,8 @@ unset($__defined_vars); ?>
     <link rel="icon" type="image/png" href="https://ext.same-assets.com/1571473267/40491873.png" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </head>
 
@@ -139,6 +141,28 @@ unset($__defined_vars); ?>
             });
         });
     </script>
+      <?php if(session('success') || session('error')): ?>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+
+            Toast.fire({
+                icon: '<?php echo e(session('success') ? 'success' : 'error'); ?>',
+                title: '<?php echo e(session('success') ?? session('error')); ?>'
+            });
+        });
+    </script>
+    <?php endif; ?>
 </body>
 
 </html>

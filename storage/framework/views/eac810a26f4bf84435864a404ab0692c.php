@@ -52,9 +52,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Image</th>
-                                <th>Tagline</th>
                                 <th>Title</th>
-                                <th>Subtitle</th>
                                 <th>Link</th>
                                 <th>Action</th>
                             </tr>
@@ -70,9 +68,7 @@
                                                 alt="<?php echo e($slide->title); ?>" class="image">
                                         </div>
                                     </td>
-                                    <td><?php echo e($slide->tagline); ?></td>
                                     <td class="overflow-auto"><?php echo e($slide->title); ?></td>
-                                    <td><?php echo e($slide->subtitle); ?></td>
                                     <td class="overflow-auto"><?php echo e($slide->link); ?></td>
                                     <td>
                                         <div class="list-icon-function">

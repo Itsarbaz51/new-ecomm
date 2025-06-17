@@ -140,7 +140,7 @@ class CartController extends Controller
             return redirect()->route('login')->with('error', 'Please login to proceed to checkout.');
         }
 
-        $address = Address::where('user_id', Auth::user()->id)->where('isdefault', 1)->first();
+        $address = Address::where('user_id', Auth::user()->id)->first();
         return view('checkout', compact('address'));
     }
 
@@ -190,6 +190,7 @@ class CartController extends Controller
         $order->save();
 
         foreach (Cart::instance('cart')->content() as $item) {
+            // dd($item);
             OrderItem::create([
                 'product_id' => $item->id,
                 'order_id' => $order->id,

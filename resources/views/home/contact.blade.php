@@ -48,11 +48,11 @@
             <div class="mw-930 mx-auto">
                 <h2 class="page-title">Contact Us</h2>
 
-                @if (Session::has('success'))
+                {{--  @if (Session::has('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ Session::get('success') }}
                     </div>
-                @endif
+                @endif  --}}
 
                 <div class="contact-us__form">
                     <form name="contact-us-form" class="needs-validation" novalidate method="POST"

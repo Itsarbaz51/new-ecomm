@@ -24,9 +24,9 @@
                 <input type="email" name="email" placeholder="Your email" required>
                 <button type="submit" style="height: fit-content; margin: auto 0;">Subscribe</button>
             </form>
-            @if(session('success'))
+            {{--  @if(session('success'))
             <div style="color: green;">{{ session('success') }}</div>
-            @endif
+            @endif  --}}
 
         </div>
     </div>
