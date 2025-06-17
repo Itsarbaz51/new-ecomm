@@ -382,7 +382,7 @@ class AdminController extends Controller
             'stock_status' => 'required',
             'featured' => 'required|boolean',
             'quantity' => 'required|integer|min:0',
-            'image' => 'nullable|mimes:png,jpg,jpeg|max:4096',
+            'image' => 'nullable|mimes:png,jpg,jpeg,webp|max:4096',
             'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:4096',
             'category_id' => 'required',
             'brand_id' => 'required',
@@ -416,7 +416,7 @@ class AdminController extends Controller
             'weight' => $request->weight,
 
             'sizes' => json_encode($request->sizes),
-            // 'colors' => json_encode($request->colors), 
+            // 'colors' => json_encode($request->colors),
 
         ]);
 
