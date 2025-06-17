@@ -303,7 +303,6 @@ class AdminController extends Controller
             'image' => 'nullable|mimes:png,jpg,jpeg,webp|max:4096',
             'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:4096',
 
-            // ✅ Corrected validation
             // 'color' => 'required|array|min:1',
             // 'colors.*' => 'required|string',
             'sizes' => 'required|array|min:1',
@@ -387,6 +386,12 @@ class AdminController extends Controller
             'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:4096',
             'category_id' => 'required',
             'brand_id' => 'required',
+
+            // 'color' => 'required|array|min:1',
+            // 'colors.*' => 'required|string',
+            'sizes' => 'required|array|min:1',
+            'sizes.*' => 'required|string',
+            'weight' => 'required|numeric',
         ]);
 
         $product = Product::find($request->id);
@@ -408,6 +413,11 @@ class AdminController extends Controller
             'quantity' => $request->quantity,
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
+            'weight' => $request->weight,
+
+            'sizes' => json_encode($request->sizes),
+            // 'colors' => json_encode($request->colors), 
+
         ]);
 
         // Delete old thumbnail image

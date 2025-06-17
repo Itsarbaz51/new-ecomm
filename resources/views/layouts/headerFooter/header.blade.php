@@ -320,7 +320,7 @@
 
                 {{--
                 <!-- Tailwind CSS Search Popup UI --> --}}
-                <div class="w-screen absolute top-16 -left-72 ">
+                <div class="w-screen absolute top-16 -right-16 sm:-right-72 sm:top-24 lg:-left-68  xl-left-72 ">
                     <div
                         class="bg-white shadow-xl rounded-lg -my-8 p-6 max-w-md mx-auto search-popup js-hidden-content">
                         <form action="#" method="GET" class="space-y-4">

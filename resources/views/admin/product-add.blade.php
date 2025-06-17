@@ -127,7 +127,7 @@
                             </div>
                         </fieldset>  --}}
 
-                        <!-- Weight Field -->
+                        {{--  <!-- Weight Field -->  --}}
                         <fieldset class="space-y-2">
                             <label for="weight" class="body-title mb-10">
                                 Weight <span class="tf-color-1">*</span> <span

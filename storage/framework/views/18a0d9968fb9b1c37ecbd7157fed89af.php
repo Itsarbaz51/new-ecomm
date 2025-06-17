@@ -44,8 +44,8 @@
                     <fieldset class="name">
                         <div class="body-title mb-10">Product name <span class="tf-color-1">*</span>
                         </div>
-                        <input class="mb-10" type="text" placeholder="Enter product name" name="name"
-                            tabindex="0" value="<?php echo e($product->name); ?>" aria-required="true" required="">
+                        <input class="mb-10" type="text" placeholder="Enter product name" name="name" tabindex="0"
+                            value="<?php echo e($product->name); ?>" aria-required="true" required="">
                         <div class="text-tiny">Do not exceed 100 characters when entering the
                             product name.</div>
                     </fieldset>
@@ -54,7 +54,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                    <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -62,8 +62,8 @@ unset($__errorArgs, $__bag); ?>
 
                     <fieldset class="name">
                         <div class="body-title mb-10">Slug <span class="tf-color-1">*</span></div>
-                        <input class="mb-10" type="text" placeholder="Enter product slug" name="slug"
-                            tabindex="0" value="<?php echo e($product->slug); ?>" aria-required="true" required="">
+                        <input class="mb-10" type="text" placeholder="Enter product slug" name="slug" tabindex="0"
+                            value="<?php echo e($product->slug); ?>" aria-required="true" required="">
                         <div class="text-tiny">Do not exceed 100 characters when entering the
                             product name.</div>
                     </fieldset>
@@ -72,7 +72,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                    <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -86,9 +86,9 @@ unset($__errorArgs, $__bag); ?>
                                 <select class="" name="category_id">
                                     <option>Choose category</option>
                                     <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($category->id); ?>"
-                                            <?php echo e($category->id === $product->category_id ? 'selected' : ''); ?>>
-                                            <?php echo e($category->name); ?></option>
+                                    <option value="<?php echo e($category->id); ?>" <?php echo e($category->id === $product->category_id ?
+                                        'selected' : ''); ?>>
+                                        <?php echo e($category->name); ?></option>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
@@ -98,7 +98,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                            <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                         <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -110,9 +110,9 @@ unset($__errorArgs, $__bag); ?>
                                 <select class="" name="brand_id">
                                     <option>Choose Brand</option>
                                     <?php $__currentLoopData = $brands; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($brand->id); ?>"
-                                            <?php echo e($brand->id === $product->brand_id ? 'selected' : ''); ?>>
-                                            <?php echo e($brand->name); ?></option>
+                                    <option value="<?php echo e($brand->id); ?>" <?php echo e($brand->id === $product->brand_id ? 'selected' :
+                                        ''); ?>>
+                                        <?php echo e($brand->name); ?></option>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
@@ -122,17 +122,55 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                            <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                         <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                     </div>
+                    <div class="flex flex-col gap-y-2">
+
+                        
+                        <?php
+                        $selectedSizes = json_decode($product->sizes, true);
+                        $allSizes = ['Free', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+                        ?>
+
+                        <fieldset class="space-y-2">
+                            <legend class="body-title mb-10">Size <span class="tf-color-1">*</span></legend>
+                            <div class="flex gap-3 overflow-x-auto pb-2">
+                                <?php $__currentLoopData = $allSizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <label class="inline-flex items-center space-x-1">
+                                    <input type="checkbox" name="sizes[]" value="<?php echo e($size); ?>"
+                                        class="size-option accent-blue-500" <?php echo e($size==='Free' ? 'id=freeSize' : ''); ?> <?php echo e(in_array(trim($size), array_map('trim', $selectedSizes)) ? 'checked' : ''); ?>>
+                                    <span class="text-sm"><?php echo e($size); ?></span>
+                                </label>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </div>
+                        </fieldset>
+
+
+
+
+
+                        
+                        
+
+                        
+                        <fieldset class="space-y-2">
+                            <label for="weight" class="body-title mb-10">
+                                Weight <span class="tf-color-1">*</span> <span class="text-sm text-gray-500">(gm)</span>
+                            </label>
+                            <input type="text" name="weight" placeholder="Enter product weight"
+                                value="<?php echo e($product->weight); ?>" required class="mb-10">
+                        </fieldset>
+
+                    </div>
 
                     <fieldset class="shortdescription">
                         <div class="body-title mb-10">Short Description <span class="tf-color-1">*</span></div>
-                        <textarea class="mb-10 ht-150" name="short_description" placeholder="Short Description" tabindex="0"
-                            aria-required="true" required=""><?php echo e($product->short_description); ?></textarea>
+                        <textarea class="mb-10 ht-150" name="short_description" placeholder="Short Description"
+                            tabindex="0" aria-required="true" required=""><?php echo e($product->short_description); ?></textarea>
                         <div class="text-tiny">Do not exceed 100 characters when entering the
                             product name.</div>
                     </fieldset>
@@ -141,7 +179,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                    <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -149,8 +187,8 @@ unset($__errorArgs, $__bag); ?>
                     <fieldset class="description">
                         <div class="body-title mb-10">Description <span class="tf-color-1">*</span>
                         </div>
-                        <textarea class="mb-10" name="description" placeholder="Description" tabindex="0" aria-required="true"
-                            required=""><?php echo e($product->description); ?></textarea>
+                        <textarea class="mb-10" name="description" placeholder="Description" tabindex="0"
+                            aria-required="true" required=""><?php echo e($product->description); ?></textarea>
                         <div class="text-tiny">Do not exceed 100 characters when entering the
                             product name.</div>
                     </fieldset>
@@ -159,7 +197,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                    <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -192,7 +230,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                    <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -204,8 +242,8 @@ unset($__errorArgs, $__bag); ?>
                             <div class="item">
 
                                 <?php $__currentLoopData = explode(',', $product->images); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <img src="<?php echo e(asset('storage/uploads/products/gallery/' . trim($image))); ?>"
-                                        alt="Product Image" style="width: 100px; height: 100px; margin-right: 10px;">
+                                <img src="<?php echo e(asset('storage/uploads/products/gallery/' . trim($image))); ?>"
+                                    alt="Product Image" style="width: 100px; height: 100px; margin-right: 10px;">
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 
@@ -216,10 +254,9 @@ unset($__errorArgs, $__bag); ?>
                                     <span class="icon">
                                         <i class="icon-upload-cloud"></i>
                                     </span>
-                                    <span class="text-tiny">Drop your images here or select <span
-                                            class="tf-color">click to browse</span></span>
-                                    <input type="file" id="gFile" name="images[]" accept="image/*"
-                                        multiple>
+                                    <span class="text-tiny">Drop your images here or select <span class="tf-color">click
+                                            to browse</span></span>
+                                    <input type="file" id="gFile" name="images[]" accept="image/*" multiple>
                                 </label>
                             </div>
                         </div>
@@ -229,7 +266,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                    <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                     <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -238,16 +275,15 @@ unset($__errorArgs, $__bag); ?>
                     <div class="cols gap22">
                         <fieldset class="name">
                             <div class="body-title mb-10">Regular Price <span class="tf-color-1">*</span></div>
-                            <input class="mb-10" type="text" placeholder="Enter regular price"
-                                name="regular_price" tabindex="0" value="<?php echo e($product->regular_price); ?>"
-                                aria-required="true" required="">
+                            <input class="mb-10" type="text" placeholder="Enter regular price" name="regular_price"
+                                tabindex="0" value="<?php echo e($product->regular_price); ?>" aria-required="true" required="">
                         </fieldset>
                         <?php $__errorArgs = ['regular_price'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                            <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                         <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -255,15 +291,14 @@ unset($__errorArgs, $__bag); ?>
                         <fieldset class="name">
                             <div class="body-title mb-10">Sale Price <span class="tf-color-1">*</span></div>
                             <input class="mb-10" type="text" placeholder="Enter sale price" name="sale_price"
-                                tabindex="0" value="<?php echo e($product->sale_price); ?>" aria-required="true"
-                                required="">
+                                tabindex="0" value="<?php echo e($product->sale_price); ?>" aria-required="true" required="">
                         </fieldset>
                         <?php $__errorArgs = ['sale_price'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                            <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                         <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -275,15 +310,15 @@ unset($__errorArgs, $__bag); ?>
                         <fieldset class="name">
                             <div class="body-title mb-10">SKU <span class="tf-color-1">*</span>
                             </div>
-                            <input class="mb-10" type="text" placeholder="Enter SKU" name="SKU"
-                                tabindex="0" value="<?php echo e($product->SKU); ?>" aria-required="true" required="">
+                            <input class="mb-10" type="text" placeholder="Enter SKU" name="SKU" tabindex="0"
+                                value="<?php echo e($product->SKU); ?>" aria-required="true" required="">
                         </fieldset>
                         <?php $__errorArgs = ['SKU'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                            <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                         <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -291,16 +326,15 @@ unset($__errorArgs, $__bag); ?>
                         <fieldset class="name">
                             <div class="body-title mb-10">Quantity <span class="tf-color-1">*</span>
                             </div>
-                            <input class="mb-10" type="text" placeholder="Enter quantity" name="quantity"
-                                tabindex="0" value="<?php echo e($product->quantity); ?>" aria-required="true"
-                                required="">
+                            <input class="mb-10" type="text" placeholder="Enter quantity" name="quantity" tabindex="0"
+                                value="<?php echo e($product->quantity); ?>" aria-required="true" required="">
                         </fieldset>
                         <?php $__errorArgs = ['quantity'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                            <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                         <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -312,11 +346,10 @@ unset($__errorArgs, $__bag); ?>
                             <div class="body-title mb-10">Stock</div>
                             <div class="select mb-10">
                                 <select class="" name="stock_status">
-                                    <option value="instock"
-                                        <?php echo e($product->stock_status == 'instock' ? 'selected' : ''); ?>>in stock
+                                    <option value="instock" <?php echo e($product->stock_status == 'instock' ? 'selected' : ''); ?>>in stock
                                     </option>
-                                    <option value="outofstock"
-                                        <?php echo e($product->stock_status == 'outofstock' ? 'selected' : ''); ?>>out of stock
+                                    <option value="outofstock" <?php echo e($product->stock_status == 'outofstock' ? 'selected' :
+                                        ''); ?>>out of stock
                                     </option>
                                 </select>
                             </div>
@@ -326,7 +359,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                            <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                         <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -347,7 +380,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                            <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
+                        <span class="alert alert-danger text-center"><?php echo e($message); ?></span>
                         <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -420,5 +453,27 @@ unset($__errorArgs, $__bag); ?>
                 .replace(/\-\-+/g, '-');
         }
     });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const freeSizeCheckbox = document.getElementById('freeSize');
+        const sizeOptions = document.querySelectorAll('.size-option');
+
+        function toggleSizes() {
+            const isFreeChecked = freeSizeCheckbox.checked;
+            sizeOptions.forEach(cb => {
+                if (cb !== freeSizeCheckbox) {
+                    cb.disabled = isFreeChecked;
+                    if (isFreeChecked) cb.checked = false;
+                }
+            });
+        }
+
+        freeSizeCheckbox.addEventListener('change', toggleSizes);
+
+        // Run once on page load in case "Free" is pre-checked
+        toggleSizes();
+    });
+
 </script>
 <?php /**PATH C:\Users\hp\Desktop\ECOMSELLER\resources\views/admin/product-edit.blade.php ENDPATH**/ ?>
